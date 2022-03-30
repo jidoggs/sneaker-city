@@ -42,7 +42,9 @@ function Layout() {
     <>
       <Header />
       <LayoutStyled location={pathname}>
-        <SideNav className="sideNav" />
+        {pathname.includes("/products/") &&
+          <SideNav className="sideNav" />
+        }
         <section>
           <Outlet />
           <Footer />

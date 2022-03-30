@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CartIcon from "../customIcon/CartIcon";
 import HeartIcon from "../customIcon/HeartIcon";
@@ -33,6 +33,8 @@ const NavHeader = styled.nav`
 `;
 
 function Navitems() {
+  const cartRef = useRef(null)
+  const navigate = useNavigate()
   return (
     <NavHeader>
       <ul>
@@ -51,7 +53,7 @@ function Navitems() {
       </ul>
       <ul>
         <li>
-          <CartIcon />
+          <CartIcon cartRef={cartRef} onClick={()=> navigate("/cart")} />
         </li>
         <li>
           <UserIcon />
