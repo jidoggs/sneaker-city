@@ -1,43 +1,43 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
-const CheckGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: red;
+// const CheckGroup = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   background-color: red;
 
-  /* label{
-    display: block;
-  } */
-  /* input[type="radio"]{
+//   label{
+//     display: block;
+//   }
+//   input[type="radio"]{
 
-    appearance: none;
-    border: 1px solid #d3d3d3;
-    width: 30px;
-    height: 30px;
-    content: none;
-    outline: none;
-    margin: 0;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+//     appearance: none;
+//     border: 1px solid #d3d3d3;
+//     width: 30px;
+//     height: 30px;
+//     content: none;
+//     outline: none;
+//     margin: 0;
+//     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+//   }
 
-  input[type="radio"]:checked {
-    appearance: none;
-    outline: none;
-    padding: 0;
-    content: none;
-    border: none;
-  }
+//   input[type="radio"]:checked {
+//     appearance: none;
+//     outline: none;
+//     padding: 0;
+//     content: none;
+//     border: none;
+//   }
 
-  input[type="radio"]:checked::before{
-    position: absolute;
-    color: green !important;
-    content: "\00A0\2713\00A0" !important;
-    border: 1px solid #d3d3d3;
-    font-weight: bolder;
-    font-size: 21px;
-  } */
-`;
+//   input[type="radio"]:checked::before{
+//     position: absolute;
+//     color: green !important;
+//     content: "\00A0\2713\00A0" !important;
+//     border: 1px solid #d3d3d3;
+//     font-weight: bolder;
+//     font-size: 21px;
+//   }
+// `;
 
 function SideNav({ className }) {
   return (

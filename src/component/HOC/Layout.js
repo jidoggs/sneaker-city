@@ -11,7 +11,7 @@ const LayoutStyled = styled.div`
 
   .sideNav {
     grid-column: 2/5;
-    background-color: papayawhip;
+    /* background-color: papayawhip; */
     display: ${props => props.location.includes("/products")? "block" : "none"};
 
     .checkBox{
@@ -30,7 +30,7 @@ const LayoutStyled = styled.div`
   section {
     grid-column: ${props => props.location.includes("/products")? "5/-2" : props.location.includes("/product/")? "1/-1": "2/-2"};
     padding-left: ${props => props.location.includes("/products")? "4rem" : "0"};
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     /* display: ${props => props.location.includes("/product/")? "grid" : "unset"}; */
     grid-template-columns: ${props => props.location.includes("/product/")? "4rem repeat(12, 1fr) 4rem" : "unset"};
   }

@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Counter = styled.div`
   display: flex;
   column-gap: 1rem;
+  align-items: center;
 
   button {
     outline: none;
@@ -27,9 +28,9 @@ const Counter = styled.div`
   }
 `;
 
-function CartItemCounter() {
+function CartItemCounter(props) {
   return (
-    <Counter>
+    <Counter {...props}>
       <button>-</button>
       <span>16</span>
       <button>+</button>
