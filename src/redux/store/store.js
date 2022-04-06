@@ -2,8 +2,8 @@
 // import thunk from "redux-thunk";
 import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from '../reducers/modalReducer';
-import cartReducer from '../reducers/reducerCart';
-import appReducer from "../reducers/reducerReq";
+import cartReducer from '../reducers/cartReducer';
+import appReducer from "../reducers/requestReducer";
 
 // let middlewares = [thunk];
 
@@ -11,8 +11,8 @@ import appReducer from "../reducers/reducerReq";
 
 export const store = configureStore({
   reducer: {
-    cartR: cartReducer,
-    appR: appReducer,
+    cartReducer: cartReducer,
+    networkRequestReducer: appReducer,
     modalReducer: modalReducer,
   },
   // middleware: [thunk, logger],

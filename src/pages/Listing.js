@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import ItemCard from "../component/ItemCard";
-import { fetchShoesData, fetchShoesError } from "../redux/actions/actionsReq";
+import { fetchShoesData, fetchShoesError } from "../redux/actions/requestActions";
 const ItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -27,7 +27,7 @@ const Title = styled.h2`
 function Listing() {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const result = useSelector((state) => state.appR.data);
+  const result = useSelector((state) => state.networkRequestReducer.data);
 
   const renderTitle = () => {
     if (pathname === "/products/new") {

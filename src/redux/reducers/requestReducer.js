@@ -1,4 +1,4 @@
-import { FETCH_SHOES_FAIL, FETCH_SHOES_SUCCESS, FOR_KIDS, FOR_MEN, FOR_WOMEN, NEW_ARRIVAL } from "../types/typesReq";
+import { FETCH_SHOES_FAIL, FETCH_SHOES_SUCCESS, FOR_KIDS, FOR_MEN, FOR_WOMEN, NEW_ARRIVAL } from "../types/requestTypes";
 
 const initialState = {
   isLoading: true,

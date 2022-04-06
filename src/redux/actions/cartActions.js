@@ -4,7 +4,7 @@ import {
   INCREASE_ITEM_COUNT,
   DECREASE_ITEM_COUNT,
   SUB_TOTAL,
-} from "../types/typesCart";
+} from "../types/cartTypes";
 
 export const cartAddItem = (data) => ({
   type: ADD_TO_CART,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { btnArr } from "../../helpers";
-import { cartAddItem } from "../../redux/actions/actionsCart";
+import { cartAddItem } from "../../redux/actions/cartActions";
 import { showModal } from "../../redux/actions/modalActions";
 import CartItemCounter from "../CartItemCounter";
 import CustomRedBtn from "../CustomRedBtn";
@@ -58,12 +58,14 @@ const ProductDecStyled = styled.div`
 
 function ProductDesc({ data }) {
   const cartItem = useSelector((state) =>
-    state.cartR.cart.filter((itm) => itm.id === data.id)
+    state.cartReducer.cart.filter((itm) => itm.id === data.id)
   );
   const [shoeSize, setShoeSize] = useState(
     cartItem.length === 1 ? cartItem[0].shoeSize : ""
   );
-  const [count, setCount] = useState(cartItem.length === 1 ? cartItem[0].amount : 1);
+  const [count, setCount] = useState(
+    cartItem.length === 1 ? cartItem[0].amount : 1
+  );
 
   const dispatch = useDispatch();
 
@@ -96,6 +98,13 @@ function ProductDesc({ data }) {
     );
   });
 
+  const decreaseHandler = () => {
+    setCount((prev) => prev - 1);
+  };
+  const increaseHandler = () => {
+    setCount((prev) => prev + 1);
+  };
+
   return (
     <ProductDecStyled>
       <section className="description">
@@ -109,7 +118,11 @@ function ProductDesc({ data }) {
         <h5>Select size</h5>
         <div className="btnWrapper">{renderBtn}</div>
         <div className="cartQuantity">
-          <CartItemCounter count={count} setCount={setCount} />
+          <CartItemCounter
+            count={count}
+            decreaseHandler={decreaseHandler}
+            increaseHandler={increaseHandler}
+          />
           <CustomRedBtn
             disabled={cartItem.length === 1}
             text={"Add to cart"}

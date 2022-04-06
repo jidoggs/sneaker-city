@@ -1,4 +1,4 @@
-import { FETCH_SHOES_FAIL, FETCH_SHOES_SUCCESS } from "../types/typesReq";
+import { FETCH_SHOES_FAIL, FETCH_SHOES_SUCCESS } from "../types/requestTypes";
 
 export const fetchShoesData = (data) => ({
     type: FETCH_SHOES_SUCCESS,

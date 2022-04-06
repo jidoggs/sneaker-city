@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { fetchShoesData, fetchShoesError } from "../../redux/actions/actionsReq";
+import { fetchShoesData, fetchShoesError } from "../../redux/actions/requestActions";
 import NextIcon from "../customIcon/Next";
 import ItemCard from "../ItemCard";
 
@@ -46,7 +46,7 @@ function NewArrival() {
 
 
   const dispatch = useDispatch();
-  const result = useSelector((state) => state.appR.data);
+  const result = useSelector((state) => state.networkRequestReducer.data);
 
   useEffect(() => {
     const options = {

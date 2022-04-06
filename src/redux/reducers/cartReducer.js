@@ -4,7 +4,7 @@ import {
   INCREASE_ITEM_COUNT,
   REMOVE_FROM_CART,
   SUB_TOTAL,
-} from "../types/typesCart";
+} from "../types/cartTypes";
 
 const initialState = {
   cart: [],
