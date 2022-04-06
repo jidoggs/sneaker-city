@@ -28,12 +28,19 @@ const Counter = styled.div`
   }
 `;
 
-function CartItemCounter(props) {
+function CartItemCounter({ style, count, setCount }) {
+  const decreaseHandler = () => {
+    setCount((prev) => prev - 1);
+  };
+  const increaseHandler = () => {
+    setCount((prev) => prev + 1);
+  };
+
   return (
-    <Counter {...props}>
-      <button>-</button>
-      <span>16</span>
-      <button>+</button>
+    <Counter style={style}>
+      <button disabled={count === 1} onClick={decreaseHandler}>-</button>
+      <span>{count}</span>
+      <button onClick={increaseHandler}>+</button>
     </Counter>
   );
 }

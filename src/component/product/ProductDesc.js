@@ -1,86 +1,122 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { btnArr } from "../../helpers";
+import { cartAddItem } from "../../redux/actions/actionsCart";
+import { showModal } from "../../redux/actions/modalActions";
 import CartItemCounter from "../CartItemCounter";
 import CustomRedBtn from "../CustomRedBtn";
 const ProductDecStyled = styled.div`
   flex: 1;
+  padding: 2rem 0;
+
+  .test {
+    background-color: green;
+  }
 
   .description {
     border-bottom: 1px solid #00000026;
-    padding: 2rem 0;
+    padding-bottom: 2rem;
     display: flex;
-    flex-direction:column;
-    color: #000000A6;
+    flex-direction: column;
+    color: #000000a6;
 
-
-
-    h5{
-        /* display: block; */
-        padding-bottom: 1.125rem;
-        color: #000;
+    h5 {
+      padding-bottom: 1.125rem;
+      color: #000;
     }
   }
-  .btnGroup{
-      padding: 2rem 0 6.5rem 0;
+  .btnGroup {
+    padding: 2rem 0 0 0;
+    display: flex;
+    flex-direction: column;
 
-      .btnWrapper{
-          padding-top: 1.125rem;
-          /* display: flex; */
-          /* flex-wrap: wrap; */
-          display: grid;
-          grid-template-columns: repeat(6,1fr);
-          gap: 12px;
+    .btnWrapper {
+      padding: 1.125rem 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
 
-          button{
-              padding: 12px 15px;
-              border-radius: .5rem;
-              outline: none;
-              border: 1px solid #00000026;
-              cursor: pointer;
-               /* flex: 1; */
-              /* &:last-child{
-                  flex: unset;
-              } */
-
-              
-          }
+      button {
+        padding: 12px 15px;
+        border-radius: 0.5rem;
+        outline: none;
+        border: 1px solid #00000026;
+        cursor: pointer;
       }
-
+      .active {
+        background-color: red;
+        color: white;
+      }
+    }
   }
-  .cartQuantity{
-      display: flex;
-      column-gap:2rem;
-      padding-bottom: 8.1875rem;
+  .cartQuantity {
+    display: flex;
+    column-gap: 2rem;
   }
-
 `;
 
-function ProductDesc() {
-    const btnArr = ["32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"]
+function ProductDesc({ data }) {
+  const cartItem = useSelector((state) =>
+    state.cartR.cart.filter((itm) => itm.id === data.id)
+  );
+  const [shoeSize, setShoeSize] = useState(
+    cartItem.length === 1 ? cartItem[0].shoeSize : ""
+  );
+  const [count, setCount] = useState(cartItem.length === 1 ? cartItem[0].amount : 1);
+
+  const dispatch = useDispatch();
+
+  const onClickHandler = () => {
+    if (shoeSize === "") {
+      dispatch(showModal());
+    }
+    if (cartItem.length !== 1 && shoeSize !== "") {
+      dispatch(cartAddItem({ ...data, shoeSize: shoeSize, amount: count }));
+    }
+  };
+
+  const renderBtn = btnArr.map((btn, idx) => {
+    if (shoeSize === btn) {
+      return (
+        <button className="active" key={idx} onClick={() => setShoeSize(btn)}>
+          {btn}
+        </button>
+      );
+    }
+    return (
+      <button
+        key={idx}
+        onClick={() => {
+          setShoeSize(btn);
+        }}
+      >
+        {btn}
+      </button>
+    );
+  });
+
   return (
     <ProductDecStyled>
       <section className="description">
         <h5>Description</h5>
-        The Jordan Delta 2 offers a fresh, fearless take on the features you
-        want: durability, comfort and an attitude that's Jordan to the core. We
-        updated design lines and swapped out some components. The 2 still has
-        that clashing combination of supportive and space age-like materials,
-        with lots of different textures and heavy stitching to create a look
-        that's both adventurous and iconic.
+        {`The ${data?.title} offers a fresh, fearless take on the features you
+        want: durability, comfort and an attitude that's ${data?.brand} to the core. We
+        updated design lines and swapped out some components. It was first lunched in ${data?.year}.`}
       </section>
 
-      <section className="btnGroup" >
-          <h5>Select size</h5>
-            <div className="btnWrapper">
-                {
-                    btnArr.map((itm,id) =>  <button key={id} onClick={()=> console.log(itm)} >{itm}</button>)
-                }
-            </div>
+      <section className="btnGroup">
+        <h5>Select size</h5>
+        <div className="btnWrapper">{renderBtn}</div>
+        <div className="cartQuantity">
+          <CartItemCounter count={count} setCount={setCount} />
+          <CustomRedBtn
+            disabled={cartItem.length === 1}
+            text={"Add to cart"}
+            onClick={onClickHandler}
+          />
+        </div>
       </section>
-      <div className="cartQuantity">
-        <CartItemCounter />
-        <CustomRedBtn text={"Add to cart"} />
-      </div>
     </ProductDecStyled>
   );
 }

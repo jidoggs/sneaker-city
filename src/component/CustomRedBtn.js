@@ -6,7 +6,7 @@ const Button = styled.button`
   background: #d90429;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${props => props.disabled? "no-drop" : "pointer" };
 
   span {
     font-size: 16px;
@@ -16,9 +16,9 @@ const Button = styled.button`
   }
 `;
 
-function CustomRedBtn({ text, onClick }) {
+function CustomRedBtn({ text, onClick, disabled }) {
   return (
-    <Button onClick={onClick}>
+    <Button disabled={disabled} onClick={onClick}>
       <span>{text}</span>
     </Button>
   );

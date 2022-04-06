@@ -44,7 +44,6 @@ const LayoutStyled = styled.div`
 function Layout() {
   const showModal = useSelector((state) => state.modalReducer.showModal);
   const { pathname } = useLocation();
-  console.log(showModal);
   return (
     <>
       {showModal && <Modal />}
