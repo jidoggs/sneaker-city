@@ -50,16 +50,19 @@ function Navitems() {
         <li>
           <NavLink to={"/products/kids"}>Kids</NavLink>
         </li>
+        <li>
+          <NavLink to={"/customProduct"}>Nike Dunk Contest</NavLink>
+        </li>
       </ul>
       <ul>
         <li>
           <CartIcon cartRef={cartRef} onClick={()=> navigate("/cart")} />
         </li>
         <li>
-          <UserIcon />
+          <HeartIcon />
         </li>
         <li>
-          <HeartIcon />
+          <UserIcon />
         </li>
       </ul>
     </NavHeader>
