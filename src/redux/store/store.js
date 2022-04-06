@@ -1,6 +1,7 @@
 // import { createStore, applyMiddleware, compose } from "redux";
 // import thunk from "redux-thunk";
 import { configureStore } from '@reduxjs/toolkit';
+import modalReducer from '../reducers/modalReducer';
 import cartReducer from '../reducers/reducerCart';
 import appReducer from "../reducers/reducerReq";
 
@@ -11,7 +12,8 @@ import appReducer from "../reducers/reducerReq";
 export const store = configureStore({
   reducer: {
     cartR: cartReducer,
-    appR: appReducer
+    appR: appReducer,
+    modalReducer: modalReducer,
   },
   // middleware: [thunk, logger],
   // middleware: (getDefaultMiddleware) =>
