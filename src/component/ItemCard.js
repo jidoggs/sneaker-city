@@ -20,7 +20,7 @@ function ItemCard({title,price,id,image}) {
         <CanvasStyled image={image} color={image === null? "#fafafa": "transparent"} />
         <div style={{display:"flex", flexDirection:"column", gap:".5rem", padding:"1.5rem 0"}}>
             <h4>{title}</h4>
-            <p>${price}</p>
+            <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price)}</p>
         </div>
     </Link>
   )

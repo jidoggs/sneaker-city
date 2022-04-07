@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 
@@ -7,6 +8,7 @@ const CartWrapper = styled.div`
   flex-direction: column;
   padding: 1.25rem;
   gap: 1rem;
+  height: ${props => props.size <= 2? "50vh": "unset"};
 `;
 const CartItemStyle = styled.div`
   display: flex;
@@ -15,22 +17,27 @@ const CartItemStyle = styled.div`
 `;
 
 function CartItemContainer() {
-  const arr = [
-    { title: "Jordan Delta 2", unit: "78,000RWF", price: "78,000RWF" },
-    { title: "Jordan Delta 2", unit: "78,000RWF", price: "78,000RWF" },
-    { title: "Jordan Delta 2", unit: "78,000RWF", price: "78,000RWF" },
-    { title: "Jordan Delta 2", unit: "78,000RWF", price: "78,000RWF" },
-  ];
+  const cart = useSelector((state) => state.cartReducer.cart);
   return (
     <CartItemStyle>
       <h2>Your shopping cart</h2>
-      <CartWrapper>
-        {
-            arr.map((itm, id) =>  <CartItem key={id} title={itm.title} unit={itm.unit} total={itm.price}  />)
-        }
+      <CartWrapper size={cart.length}>
+        {cart.length > 0 ? (
+          cart.map((itm, idx) => (
+            <CartItem
+              key={idx}
+              img={itm.media.thumbUrl}
+              title={itm.shoe}
+              unit={itm.retailPrice}
+              itmCount={itm.amount}
+              itmId={itm.id}
+            />
+          ))
+        ) : (
+          <p>Cart is Empty</p>
+        )}
       </CartWrapper>
     </CartItemStyle>
-    // <div>CartItemContainer</div>
   );
 }
 

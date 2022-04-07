@@ -28,13 +28,8 @@ const Counter = styled.div`
   }
 `;
 
-function CartItemCounter({ style, count, setCount }) {
-  const decreaseHandler = () => {
-    setCount((prev) => prev - 1);
-  };
-  const increaseHandler = () => {
-    setCount((prev) => prev + 1);
-  };
+function CartItemCounter({ style, count, increaseHandler, decreaseHandler }) {
+  
 
   return (
     <Counter style={style}>

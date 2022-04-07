@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { btnArr } from "../../helpers";
-import { cartAddItem } from "../../redux/actions/cartActions";
+import { cartAddItem, updateCartItem } from "../../redux/actions/cartActions";
 import { showModal } from "../../redux/actions/modalActions";
 import CartItemCounter from "../CartItemCounter";
 import CustomRedBtn from "../CustomRedBtn";
@@ -76,6 +76,9 @@ function ProductDesc({ data }) {
     if (cartItem.length !== 1 && shoeSize !== "") {
       dispatch(cartAddItem({ ...data, shoeSize: shoeSize, amount: count }));
     }
+    if ((cartItem.length === 1 && shoeSize !== cartItem[0].shoeSize) || (cartItem.length === 1 && count !== cartItem[0].amount)) {
+      dispatch(updateCartItem({id: cartItem[0].id, count: count, shoeSize: shoeSize}))
+    }
   };
 
   const renderBtn = btnArr.map((btn, idx) => {
@@ -124,7 +127,7 @@ function ProductDesc({ data }) {
             increaseHandler={increaseHandler}
           />
           <CustomRedBtn
-            disabled={cartItem.length === 1}
+            disabled={cartItem.length === 1 && cartItem[0].shoeSize === shoeSize && count === cartItem[0].amount}
             text={"Add to cart"}
             onClick={onClickHandler}
           />

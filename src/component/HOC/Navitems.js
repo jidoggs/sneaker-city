@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import CartIcon from "../customIcon/CartIcon";
 import HeartIcon from "../customIcon/HeartIcon";
@@ -9,7 +10,7 @@ const NavHeader = styled.nav`
   grid-column: 6/-2;
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
 
   ul,
   li {
@@ -26,15 +27,34 @@ const NavHeader = styled.nav`
     gap: 2rem;
   }
   .active {
-    /* text-decoration: underline; */
     padding-bottom: 4px;
     border-bottom: 2px solid #000000;
+  }
+  .cart {
+    position: relative;
+    cursor: pointer;
+
+    span {
+      background-color: red;
+      color: #fff;
+      width: 1rem;
+      height: 1rem;
+      position: absolute;
+      inset: -0.7rem -0.7rem auto auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      padding: 0.7rem;
+    }
   }
 `;
 
 function Navitems() {
-  const cartRef = useRef(null)
-  const navigate = useNavigate()
+  const cartRef = useRef(null);
+  const navigate = useNavigate();
+  const cart = useSelector((state) => state.cartReducer.cart);
+
   return (
     <NavHeader>
       <ul>
@@ -55,8 +75,9 @@ function Navitems() {
         </li>
       </ul>
       <ul>
-        <li>
-          <CartIcon cartRef={cartRef} onClick={()=> navigate("/cart")} />
+        <li className="cart" onClick={() => navigate("/cart")}>
+          <CartIcon cartRef={cartRef}  />
+          {cart.length !== 0 && <span>{cart.length}</span>}
         </li>
         <li>
           <HeartIcon />

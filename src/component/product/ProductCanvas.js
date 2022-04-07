@@ -50,7 +50,7 @@ function ProductCanvas({ data }) {
           <h2 className="title">{data?.title}</h2>
           <HeartIcon />
         </div>
-        <p className="price">{data?.retailPrice}</p>
+        <p className="price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data?.retailPrice)}</p>
       </TextWrapper>
       <ShoeImage image={data?.media?.imageUrl} />
     </ProductCanvasStyle>

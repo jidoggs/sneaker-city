@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { subTotal } from "../../redux/actions/cartActions";
+import { showModal } from "../../redux/actions/modalActions";
 import CustomRedBtn from "../CustomRedBtn";
 
 const Checkout = styled.section`
   flex: 1;
   h4 {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 400;
-    line-height: 32px;
+    line-height: 2rem;
     color: #000000bf;
   }
   .breakdown {
@@ -16,10 +19,10 @@ const Checkout = styled.section`
     p {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 16px;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
       font-weight: 400;
-      line-height: 24px;
+      line-height: 1.5rem;
       color: #000000a6;
 
       &:last-child{
@@ -41,19 +44,29 @@ const Checkout = styled.section`
 `;
 
 function CartCheckOut() {
+  const total = useSelector(state => state.cartReducer.cartItemsTotal)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(subTotal())
+  }, [dispatch])
+  const checkoutHandler = () => { 
+    dispatch(showModal())
+   }
+
   return (
     <Checkout>
       <h4>Order summary</h4>
       <div className="breakdown">
         <p>
-          Sub total <span>78,000RWF</span>
+          Sub total <span>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}</span>
         </p>
         <p>
           Delivery fee <span>0</span>
         </p>
       </div>
-      <p className="total">78,000RWF</p>
-      <CustomRedBtn text="Proceed to checkout" />
+      <p className="total">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}</p>
+      <CustomRedBtn text="Proceed to checkout" onClick={checkoutHandler} />
     </Checkout>
   );
 }

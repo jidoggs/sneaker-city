@@ -4,6 +4,8 @@ import {
   INCREASE_ITEM_COUNT,
   DECREASE_ITEM_COUNT,
   SUB_TOTAL,
+  RESET_CART,
+  UPDATE_ITEM,
 } from "../types/cartTypes";
 
 export const cartAddItem = (data) => ({
@@ -24,4 +26,11 @@ export const decreaseCartItemCount = (data) => ({
 });
 export const subTotal = () => ({
   type: SUB_TOTAL,
+});
+export const resetCart = () => ({
+  type: RESET_CART,
+});
+export const updateCartItem = (data) => ({
+  type: UPDATE_ITEM,
+  payload: data
 });
