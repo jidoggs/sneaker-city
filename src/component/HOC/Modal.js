@@ -54,6 +54,9 @@ function Modal() {
         <CustomRedBtn text={"Thanks"} onClick={onClickHandler} />
       </div>
     }
+    if (pathname === "/") {
+      return <p>You already have item in your cart</p>
+    }
    }
 
   return (

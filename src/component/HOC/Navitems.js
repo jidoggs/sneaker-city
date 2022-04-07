@@ -71,7 +71,7 @@ function Navitems() {
           <NavLink to={"/products/kids"}>Kids</NavLink>
         </li>
         <li>
-          <NavLink to={"/customProduct"}>Nike Dunk Contest</NavLink>
+          <NavLink to={"/customProduct"}>Nike Contest</NavLink>
         </li>
       </ul>
       <ul>

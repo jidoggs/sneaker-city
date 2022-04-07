@@ -1,12 +1,21 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { heroShoe } from "../../helpers";
+import { cartAddItem } from "../../redux/actions/cartActions";
+import { showModal } from "../../redux/actions/modalActions";
 import CustomRedBtn from "../CustomRedBtn";
 import Scene from "./Scene";
 
 const Container = styled.div`
   display: flex;
+`;
+const BtnWrapper = styled.div`
+  display: flex;
+  column-gap: 1rem;
 `;
 
 const TextContainer = styled.div`
@@ -15,17 +24,13 @@ const TextContainer = styled.div`
   justify-content: center;
   row-gap: 2rem;
   flex: 1;
-
-  button {
-    align-self: flex-start;
-  }
 `;
 
 const HomeHeadline = styled.h1`
   font-size: 4.5rem;
   font-weight: 600;
   line-height: 5.5rem;
-  span{
+  span {
     font-size: 2.25rem;
   }
 `;
@@ -44,25 +49,43 @@ const Price = styled.p`
 
 function Hero() {
   const [rotate, setRotate] = useState(true);
+  const cartItem = useSelector((state) =>
+    state.cartReducer.cart.filter((itm) => itm.id === heroShoe.id)
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    if (cartItem.length === 1) {
+      dispatch(showModal());
+    }
+    if (cartItem.length < 1) {
+      dispatch(cartAddItem({ ...heroShoe }));
+    }
+  };
   return (
     <Container>
       <TextContainer>
-        <HomeHeadline>Nike MAG <span>(2016)</span></HomeHeadline>
+        <HomeHeadline>Air Jordan 1</HomeHeadline>
         <HomeSub>
-          Back to the Future, the first in a trilogy of films, was a box office
-          success. In 1989, Nike Inc. designer Tinker Hatfield was asked to
-          create a shoe for the second installment of the series, which was
-          partly set in the then-futuristic year of 2015. The shoe had features
-          that included light-up panels and self-fastening laces. Hover on model for effects
+          These AJ1s showcase a classic silhouette with vintage-inspired colors.
+          You'll love the tonal, layered look of rich grain leather and woven
+          fabrics—and you'll love the feel of the buttery soft interior.
         </HomeSub>
-        <Price>$27,500</Price>
-        <CustomRedBtn text={"Add to cart"} />
+        <Price>$160.00</Price>
+        <BtnWrapper>
+          <CustomRedBtn text={"Add to cart"} onClick={onClickHandler} />
+          <CustomRedBtn
+            text={"Customize a Jordan Challenge"}
+            onClick={() => navigate("/customProduct")}
+            color={"secondary"}
+          />
+        </BtnWrapper>
       </TextContainer>
       <Canvas style={{ height: "70vh", flex: 1 }}>
         <Suspense fallback={null}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
-          {/* <HeroModel position={[-1.2, 0, 0]} /> */}
           <Scene setRotate={setRotate} />
           <OrbitControls autoRotate={rotate} enableZoom={false} />
         </Suspense>

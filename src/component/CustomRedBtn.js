@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Button = styled.button`
   padding: 0.625rem 1.5rem;
   color: #fff;
-  background: #d90429;
+  background: ${props => props.color === "secondary"? "green" :"#d90429"};
   border: none;
   outline: none;
   cursor: ${props => props.disabled? "no-drop" : "pointer" };
@@ -16,9 +16,9 @@ const Button = styled.button`
   }
 `;
 
-function CustomRedBtn({ text, onClick, disabled }) {
+function CustomRedBtn({ text, onClick, disabled, color }) {
   return (
-    <Button disabled={disabled} onClick={onClick}>
+    <Button color={color} disabled={disabled} onClick={onClick}>
       <span>{text}</span>
     </Button>
   );

@@ -3,158 +3,112 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 6385,
+      "count": 50787,
       "max": [
-        14.871149063110352,
-        37.42230987548828,
-        32.29679870605469
+        0.04897800087928772,
+        0.125,
+        0.14289799332618713
       ],
       "min": [
-        -13.487506866455078,
-        -35.8636360168457,
-        -30.158489227294922
+        -0.04897800087928772,
+        -0.125,
+        0.0
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 76620,
+      "byteOffset": 609444,
       "componentType": 5126,
-      "count": 6385,
+      "count": 50787,
       "max": [
-        0.9999305009841919,
-        0.9998786449432373,
-        0.9999881386756897
+        0.9999991059303284,
+        0.9999998807907104,
+        0.9999998211860657
       ],
       "min": [
-        -0.9999269843101501,
-        -0.9999051094055176,
-        -0.9999954700469971
+        -0.9999980330467224,
+        -0.9999093413352966,
+        -0.999998152256012
       ],
       "type": "VEC3"
     },
     {
-      "bufferView": 3,
-      "componentType": 5126,
-      "count": 6385,
-      "max": [
-        0.9999929070472717,
-        0.9999257922172546,
-        0.9999785423278809,
-        1.0
-      ],
-      "min": [
-        -0.999972939491272,
-        -0.9999463558197021,
-        -0.9999701976776123,
-        -1.0
-      ],
-      "type": "VEC4"
-    },
-    {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 6385,
+      "count": 50787,
       "max": [
-        0.9980469942092896,
-        0.9827839732170105
+        0.861240029335022,
+        0.999019980430603
       ],
       "min": [
-        0.0019529999699443579,
-        0.0019529999699443579
+        0.0009699999936856329,
+        0.0009699999936856329
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 33834,
+      "count": 300000,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "pandan (https://sketchfab.com/pandan)",
+      "author": "Black Ink (https://sketchfab.com/blackink)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/nike-air-mag-15ef47bad0aa4666b459cf78261abce5",
-      "title": "Nike Air Mag"
+      "source": "https://sketchfab.com/3d-models/air-jordan-1-retro-high-obsidian-unc-ab3c68bb7fb94d80b59a713990fcbae1",
+      "title": "Air Jordan 1 Retro High Obsidian UNC"
     },
-    "generator": "Sketchfab-12.63.0",
+    "generator": "Sketchfab-12.73.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 135336,
+      "byteLength": 1200000,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 51080,
-      "byteOffset": 135336,
+      "byteLength": 406296,
+      "byteOffset": 1200000,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 153240,
-      "byteOffset": 186416,
+      "byteLength": 1218888,
+      "byteOffset": 1606296,
       "byteStride": 12,
-      "name": "floatBufferViews",
-      "target": 34962
-    },
-    {
-      "buffer": 0,
-      "byteLength": 102160,
-      "byteOffset": 339656,
-      "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 441816,
+      "byteLength": 2825184,
       "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/StingrayPBS1SG_baseColor.png"
-    },
-    {
-      "uri": "textures/StingrayPBS1SG_metallicRoughness.png"
-    },
-    {
-      "uri": "textures/StingrayPBS1SG_emissive.png"
-    },
-    {
-      "uri": "textures/StingrayPBS1SG_normal.png"
+      "uri": "textures/main_object.001.mat_baseColor.jpeg"
     }
   ],
   "materials": [
     {
-      "emissiveFactor": [
-        1.0,
-        1.0,
-        1.0
-      ],
-      "emissiveTexture": {
-        "index": 2
-      },
-      "name": "StingrayPBS1SG",
-      "normalTexture": {
-        "index": 3
-      },
+      "doubleSided": true,
+      "name": "main_object.001.mat",
       "pbrMetallicRoughness": {
         "baseColorTexture": {
           "index": 0
         },
-        "metallicRoughnessTexture": {
-          "index": 1
-        }
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.85
       }
     }
   ],
@@ -166,10 +120,9 @@
           "attributes": {
             "NORMAL": 1,
             "POSITION": 0,
-            "TANGENT": 2,
-            "TEXCOORD_0": 3
+            "TEXCOORD_0": 2
           },
-          "indices": 4,
+          "indices": 3,
           "material": 0,
           "mode": 4
         }
@@ -182,21 +135,21 @@
         1
       ],
       "matrix": [
-        0.011169638484716415,
+        0.9379968643188477,
         0.0,
         0.0,
         0.0,
         0.0,
-        -0.00282160729410563,
-        -0.0108073752285478,
+        2.0827714315859672e-16,
+        -0.9379968643188477,
         0.0,
         0.0,
-        0.0108073752285478,
-        -0.00282160729410563,
+        0.9379968643188477,
+        2.0827714315859672e-16,
         0.0,
         0.0,
-        0.2315634042024612,
-        0.2447925209999085,
+        0.0,
+        0.0,
         1.0
       ],
       "name": "Sketchfab_model"
@@ -205,11 +158,71 @@
       "children": [
         2
       ],
-      "name": "airmag_toPoly_01.obj.cleaner.materialmerger.gles"
+      "name": "root"
+    },
+    {
+      "children": [
+        3
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model_0"
+    },
+    {
+      "children": [
+        5
+      ],
+      "name": "AirJordan1RetroHigh.obj.cleaner.materialmerger.gles_1"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "Object_2_2"
     },
     {
       "mesh": 0,
-      "name": "Object_2"
+      "name": "Object_6"
     }
   ],
   "samplers": [
@@ -233,18 +246,6 @@
     {
       "sampler": 0,
       "source": 0
-    },
-    {
-      "sampler": 0,
-      "source": 1
-    },
-    {
-      "sampler": 0,
-      "source": 2
-    },
-    {
-      "sampler": 0,
-      "source": 3
     }
   ]
 }
