@@ -3,6 +3,7 @@ import CartItemCounter from "../CartItemCounter";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { cartRemoveItem, decreaseCartItemCount, increaseCartItemCount, subTotal } from "../../redux/actions/cartActions";
+import { Link } from "react-router-dom";
 
 const CartItemContainer = styled.div`
   padding: 1.5rem 2rem;
@@ -21,12 +22,13 @@ const CartItemContainer = styled.div`
     background-repeat: no-repeat;
     background-position: bottom;
   }
-  p {
+  p,a {
     font-weight: 400;
     grid-column: 3/4;
     grid-row: 1/2;
   }
   .title {
+    text-decoration: none;
     align-self: center;
     font-size: 1.125rem;
     line-height: 1.625rem;
@@ -70,7 +72,7 @@ function CartItem({ title, img, unit, itmCount,itmId }) {
   return (
     <CartItemContainer image={img}>
       <span className="image" role={"img"} aria-roledescription="shoe"></span>
-      <p className="title" >{title}</p>
+      <Link to={`/product/${itmId}`} className="title" >{title}</Link>
       <p className="unitAmount">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(unit)}</p>
       <CartItemCounter style={{ gridColumn: "5/6" }} count={itmCount} decreaseHandler={decreaseHandler} increaseHandler={increaseHandler} />
       <p className="unitTotal">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(itmCount * unit)}</p>
