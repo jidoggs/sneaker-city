@@ -4,7 +4,10 @@ import styled from "styled-components";
 import Logo from "../customIcon/Logo";
 
 const FooterStyle = styled.footer`
-  display: ${(props) => (props.location.includes("/product/") ? "none" : "block")};
+  display: ${(props) =>
+    props.location.includes("/product/") || props.location === "/customProduct"
+      ? "none"
+      : "block"};
   flex-direction: column;
   border-top: 1px solid #00000026;
   padding: ${(props) =>
@@ -12,12 +15,14 @@ const FooterStyle = styled.footer`
       ? "4rem 0"
       : props.location.includes("/products")
       ? "2rem 0 4rem 0"
-      : props.location === "/cart"? "4rem 0 8rem 0": "0"};
-  
-  .logo{
+      : props.location === "/cart"
+      ? "4rem 0 8rem 0"
+      : "0"};
+
+  .logo {
     margin-bottom: 2rem;
   }
-  .disclaimer{
+  .disclaimer {
     margin-bottom: 3.5rem;
   }
 
@@ -28,22 +33,26 @@ const FooterStyle = styled.footer`
   .address {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    row-gap: .5rem;
+    row-gap: 0.5rem;
 
     /* p{
       margin-bottom: .5rem;
     } */
 
-    p:first-child{
-      grid-column: ${(props) => (props.location.includes("/products") ? "1/-1" : "1/3")};
-      grid-row: ${(props) => (props.location.includes("/products") ? "1/2" : "2/3")};
+    p:first-child {
+      grid-column: ${(props) =>
+        props.location.includes("/products") ? "1/-1" : "1/3"};
+      grid-row: ${(props) =>
+        props.location.includes("/products") ? "1/2" : "2/3"};
     }
-    p:nth-child(2){
-      grid-column: ${(props) => (props.location.includes("/products") ? "1/3" : "3/5")};
+    p:nth-child(2) {
+      grid-column: ${(props) =>
+        props.location.includes("/products") ? "1/3" : "3/5"};
       grid-row: 2/3;
-      justify-self: ${(props) => (props.location.includes("/products") ? "flex-start" : "center")};
+      justify-self: ${(props) =>
+        props.location.includes("/products") ? "flex-start" : "center"};
     }
-    p:last-child{
+    p:last-child {
       grid-column: 5/7;
       grid-row: 2/3;
       justify-self: flex-end;

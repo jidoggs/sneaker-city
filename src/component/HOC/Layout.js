@@ -29,13 +29,13 @@ const LayoutStyled = styled.div`
     grid-column: ${(props) =>
       props.location.includes("/products")
         ? "5/-2"
-        : props.location.includes("/product/")
+        : props.location.includes("/product/") || props.location === "/customProduct"
         ? "1/-1"
         : "2/-2"};
     padding-left: ${(props) =>
       props.location.includes("/products") ? "4rem" : "0"};
     grid-template-columns: ${(props) =>
-      props.location.includes("/product/")
+      props.location.includes("/product/") || props.location === "/customProduct"
         ? "4rem repeat(12, 1fr) 4rem"
         : "unset"};
   }
