@@ -29,6 +29,7 @@ const NavHeader = styled.nav`
   .active {
     padding-bottom: 4px;
     border-bottom: 2px solid #000000;
+    transition: border-color 1s ease-out;
   }
   .cart {
     position: relative;

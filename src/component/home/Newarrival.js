@@ -5,8 +5,9 @@ import Nike from "../customIcon/Nike";
 import Vans from "../customIcon/Vans";
 import { Link } from "react-router-dom";
 import NextIcon from "../customIcon/Next";
+import { motion } from "framer-motion";
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   padding: 1rem 2rem;
   display: flex;
   justify-content: center;
@@ -32,9 +33,22 @@ const Container = styled.div`
   }
 `;
 
+const container = {
+  hidden: { x: "100vw", display: "none" },
+  visible: {
+    x: 0,
+    display: "flex",
+    transition: {
+      delay: 1.2,
+      type: "spring",
+      stiffness: 50,
+    },
+  },
+};
+
 function HeroNewarrival() {
   return (
-    <Container>
+    <Container variants={container} initial="hidden" animate="visible">
       <div className="container__img">
         <Adidas />
         <Nike />

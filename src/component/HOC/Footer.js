@@ -1,7 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import Facebook from "../customIcon/Facebook";
+import Instagram from "../customIcon/Instagram";
 import Logo from "../customIcon/Logo";
+import Twitter from "../customIcon/Twitter";
 
 const FooterStyle = styled.footer`
   display: ${(props) =>
@@ -34,16 +37,21 @@ const FooterStyle = styled.footer`
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     row-gap: 0.5rem;
-
-    /* p{
-      margin-bottom: .5rem;
-    } */
+    align-items: center;
 
     p:first-child {
       grid-column: ${(props) =>
         props.location.includes("/products") ? "1/-1" : "1/3"};
       grid-row: ${(props) =>
         props.location.includes("/products") ? "1/2" : "2/3"};
+
+        display: flex;
+        column-gap: 0.75rem;
+        align-items: center;
+
+        svg{
+          cursor: pointer;
+        }
     }
     p:nth-child(2) {
       grid-column: ${(props) =>
@@ -69,6 +77,7 @@ const FooterStyle = styled.footer`
 
 function Footer() {
   const { pathname } = useLocation();
+
   return (
     <FooterStyle location={pathname}>
       <Logo className={"logo"} />
@@ -79,11 +88,11 @@ function Footer() {
         science of good sneakers.
       </p>
       <div className="address">
-        <p>Don’t missout on once-in-a-while-deals:</p>
+        <p>Don’t miss out on solid deals:<Twitter/> <Instagram /><Facebook /></p>
         <p>
           Support line: <span>+250 788 467 808</span>
         </p>
-        <p>Copyright 2021 © Sneaker City ltd</p>
+        <p>{`Copyright ${new Date().getFullYear()} © Sneaker City ltd`}</p>
       </div>
     </FooterStyle>
   );

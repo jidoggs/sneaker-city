@@ -65,8 +65,6 @@ function Layout() {
     // eslint-disable-next-line
   }, []);
 
-  console.log(showWelcome);
-
   return (
     <>
       {showWelcome && <Welcome />}
