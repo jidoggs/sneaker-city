@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { proxy, useSnapshot } from "valtio";
 // import { useFrame } from "@react-three/fiber";
-import { colorPallate, fauxName, resetColorPallet } from "../../helpers";
+import { colorPallate, fauxName } from "../../helpers";
 import _ from "lodash";
 
 export const state = proxy({ obj: colorPallate });
@@ -43,6 +43,7 @@ export default function Model(props) {
     return () => {
       document.body.style.cursor = "default";
     };
+    // eslint-disable-next-line
   }, [hovered]);
 
   return (
@@ -50,15 +51,15 @@ export default function Model(props) {
       ref={group}
       {...props}
       dispose={null}
-      onPointerOver={(e) => (
-        e.stopPropagation(), set(fauxName(e.object.material.name))
-      )}
+      onPointerOver={(e) => {
+        e.stopPropagation(); set(fauxName(e.object.material.name))
+      }}
       onPointerOut={(e) => e.intersections.length === 0 && set(null)}
       onPointerMissed={() => (state.obj.current = null)}
-      onPointerDown={(e) => (
-        e.stopPropagation(),
+      onPointerDown={(e) => {
+        e.stopPropagation();
         (state.obj.current = fauxName(e.object.material.name))
-      )}
+      }}
     >
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
