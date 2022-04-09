@@ -1,8 +1,8 @@
 // import { createStore, applyMiddleware, compose } from "redux";
 // import thunk from "redux-thunk";
-import { configureStore } from '@reduxjs/toolkit';
-import modalReducer from '../reducers/modalReducer';
-import cartReducer from '../reducers/cartReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import modalReducer from "../reducers/modalReducer";
+import cartReducer from "../reducers/cartReducer";
 import appReducer from "../reducers/requestReducer";
 
 // let middlewares = [thunk];
@@ -15,12 +15,4 @@ export const store = configureStore({
     networkRequestReducer: appReducer,
     modalReducer: modalReducer,
   },
-  // middleware: [thunk, logger],
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     thunk: {
-  //       extraArgument: myCustomApiService,
-  //     },
-  //     serializableCheck: false,
-  //   }),
 });

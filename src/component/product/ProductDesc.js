@@ -71,7 +71,7 @@ function ProductDesc({ data }) {
 
   const onClickHandler = () => {
     if (shoeSize === "") {
-      dispatch(showModal());
+      dispatch(showModal("You have to select a shoe size"));
     }
     if (cartItem.length !== 1 && shoeSize !== "") {
       dispatch(cartAddItem({ ...data, shoeSize: shoeSize, amount: count }));

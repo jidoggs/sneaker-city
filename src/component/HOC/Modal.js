@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { resetCart } from "../../redux/actions/cartActions";
@@ -18,9 +18,6 @@ const StyledModal = styled.div`
   div {
     background-color: white;
     padding: 8rem;
-  }
-  .cart{
-    padding: 0;
     display:flex;
     flex-direction:column;
     row-gap: 4rem;
@@ -29,39 +26,28 @@ const StyledModal = styled.div`
 
 function Modal() {
   const dispatch = useDispatch();
+  const message = useSelector(state => state.modalReducer.message)
   const navigate = useNavigate()
   const {pathname} = useLocation();
 
   const onClickHandler = () => {
     dispatch(hideModal());
-    if (pathname === "/cart") {
-      dispatch(resetCart())
+    if (pathname === "/cart" || pathname === "/customProduct") {
+      if (pathname === "/cart") {
+        dispatch(resetCart())
+      }
       navigate("/")
     }
   };
 
   
-  
-
-  const renderText = () => { 
-    if(pathname.includes("/product/")){
-      return <p>You have to select a shoe size</p>
-    }
-    if (pathname === "/cart") {
-      
-      return <div className="cart">
-        <p>Thank you for shopping with Sneaker city</p>
-        <CustomRedBtn text={"Thanks"} onClick={onClickHandler} />
-      </div>
-    }
-    if (pathname === "/") {
-      return <p>You already have item in your cart</p>
-    }
-   }
-
   return (
     <StyledModal onClick={onClickHandler}>
-      <div>{renderText()}</div>
+      <div>
+      <p>{message}</p>
+      {pathname ==="/cart" && <CustomRedBtn text={"Thanks"} onClick={onClickHandler} />}
+      {pathname ==="/customProduct" && <CustomRedBtn text={"Thanks for participating"} onClick={onClickHandler} />}
+      </div>
     </StyledModal>
   );
 }

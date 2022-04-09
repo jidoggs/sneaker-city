@@ -57,7 +57,7 @@ function Hero() {
 
   const onClickHandler = () => {
     if (cartItem.length === 1) {
-      dispatch(showModal());
+      dispatch(showModal("You already have item in your cart"));
     }
     if (cartItem.length < 1) {
       dispatch(cartAddItem({ ...heroShoe }));

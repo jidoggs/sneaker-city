@@ -51,7 +51,7 @@ function CartCheckOut() {
     dispatch(subTotal())
   }, [dispatch])
   const checkoutHandler = () => { 
-    dispatch(showModal())
+    dispatch(showModal("Thank you for shopping with Sneaker city"))
    }
 
   return (
