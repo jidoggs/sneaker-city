@@ -1,10 +1,13 @@
 import React, { useLayoutEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Outlet, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { resetCart } from "../../redux/actions/cartActions";
+import { hideModal } from "../../redux/actions/modalActions";
+import CustomRedBtn from "../CustomRedBtn";
 import Footer from "./Footer";
 import Header from "./Header";
-import Modal from "./Modal";
+import Modal from "./portal/Modal";
 import SideNav from "./SideNav";
 import Welcome from "./Welcome";
 
@@ -44,9 +47,13 @@ const LayoutStyled = styled.div`
   }
 `;
 
+
+
 function Layout() {
-  const showModal = useSelector((state) => state.modalReducer.showModal);
+  const modal = useSelector((state) => state.modalReducer);
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [showWelcome, setShowWelcome] = useState(false);
 
   useLayoutEffect(() => {
@@ -65,13 +72,46 @@ function Layout() {
     // eslint-disable-next-line
   }, []);
 
+  const homeClickHandler = () => {
+    if (pathname === "/") {
+      handleClose();
+    }
+  };
+
+  const handleClose = () => {
+    dispatch(hideModal());
+    if (pathname === "/cart" || pathname === "/customProduct") {
+      if (pathname === "/cart") {
+        dispatch(resetCart());
+      }
+      navigate("/");
+    }
+  };
+
+  const handleBtnType = () => {
+    if (pathname === "/cart") {
+      return <CustomRedBtn text={"Thanks"} onClick={handleClose} />;
+    }
+    if (pathname === "/customProduct") {
+      return (
+        <CustomRedBtn text={"Thanks for participating"} onClick={handleClose} />
+      );
+    }
+  };
+
   return (
     <>
+        <Modal
+          isOpen={modal.showModal}
+          handleClose={handleClose}
+          homeClickHandler={homeClickHandler}
+        >
+          <p>{modal.message}</p>
+          {handleBtnType()}
+        </Modal>
       {showWelcome && <Welcome />}
-      {showModal && <Modal />}
       {!showWelcome && (
         <>
-          {" "}
           <Header />
           <LayoutStyled location={pathname}>
             {pathname.includes("/products/") && <SideNav className="sideNav" />}
@@ -79,7 +119,7 @@ function Layout() {
               <Outlet />
               <Footer />
             </section>
-          </LayoutStyled>{" "}
+          </LayoutStyled>
         </>
       )}
     </>
