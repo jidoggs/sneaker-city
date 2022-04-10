@@ -111,3 +111,28 @@ export const colorPallate = {
     toeAndSwoosh: "black",
   },
 };
+
+export const capitalizeEachWord = (str) => {
+  const lower = str.toLowerCase();
+  const words = lower.split(" ");
+
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+  }
+
+  return words.join(" ");
+};
+
+export const resultFilter = (parentArr, priceArr, brandArr) => {
+  return parentArr.filter((itm) =>
+    priceArr.length > 0
+      ? brandArr.length === 0
+        ? itm.retailPrice >= priceArr[0] && itm.retailPrice <= priceArr[1]
+        : itm.retailPrice >= priceArr[0] &&
+          itm.retailPrice <= priceArr[1] &&
+          brandArr.includes(itm.brand)
+      : brandArr.length > 0
+      ? brandArr.includes(itm.brand)
+      : itm
+  );
+};

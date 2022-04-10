@@ -9,15 +9,17 @@ import Listing from "./pages/Listing";
 function App() {
   return (
     <Routes>
-      <Route element={<Layout/>}>
-        <Route path="/" element={<Home/>} />
-        <Route path="/products/new" element={<Listing/>} />
-        <Route path="/products/men" element={<Listing/>} />
-        <Route path="/products/women" element={<Listing/>} />
-        <Route path="/products/kids" element={<Listing/>} />
-        <Route path="/product/:id" element={<Details/>} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="products">
+          <Route path="new" element={<Listing />} />
+          <Route path="men" element={<Listing />} />
+          <Route path="women" element={<Listing />} />
+          <Route path="kids" element={<Listing />} />
+        </Route>
+        <Route path="/product/:id" element={<Details />} />
         <Route path="/customProduct" element={<Customshoe />} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/cart" element={<Cart />} />
       </Route>
     </Routes>
   );

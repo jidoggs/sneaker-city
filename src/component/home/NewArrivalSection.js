@@ -46,7 +46,8 @@ function NewArrival() {
 
 
   const dispatch = useDispatch();
-  const result = useSelector((state) => state.networkRequestReducer.data);
+  const result = useSelector((state) => state.networkRequestReducer.newShoes.data);
+  
 
   useEffect(() => {
     const options = {
@@ -56,7 +57,7 @@ function NewArrival() {
         limit: "10",
         page: "1",
         releaseYear: "gte:2011",
-        sort: "retailPrice:desc",
+        // sort: "retailPrice:desc",
       },
       headers: {
         "X-RapidAPI-Host": "v1-sneakers.p.rapidapi.com",
@@ -68,11 +69,10 @@ function NewArrival() {
   axios
     .request(options)
     .then(function (response) {
-      dispatch(fetchShoesData(response.data.results.filter((itm) => itm.media.thumbUrl !== null)));
+      dispatch(fetchShoesData(response.data.results.filter((itm) => itm.media.thumbUrl !== null)))
     })
     .catch(function (error) {
-      dispatch(fetchShoesError(error));
-      console.error(error);
+      dispatch(fetchShoesError(error))
     });
   }, [dispatch])
 

@@ -31,21 +31,22 @@ const StyledModal = styled.div`
 `;
 
 function Modal(props) {
+  const {handleClose, isOpen, homeClickHandler} = props
   useEffect(() => {
-    const closeOnEscapeKey = (e) => (e.key === "Escape" ? props.handleClose() : null);
+    const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
     return () => {
       document.body.removeEventListener("keydown", closeOnEscapeKey);
     };
-  }, [props.handleClose]);
+  }, [handleClose]);
 
-  if (!props.isOpen) return null;
+  if (!isOpen) return null;
 
   
   return (
     <ReactPortal>
       <StyledModal className="modal">
-        <div className="modal-content" onClick={props.homeClickHandler} >{props.children}</div>
+        <div className="modal-content" onClick={homeClickHandler} >{props.children}</div>
       </StyledModal>
     </ReactPortal>
   );

@@ -8,11 +8,12 @@ import CustomRedBtn from "../CustomRedBtn";
 import Footer from "./Footer";
 import Header from "./Header";
 import Modal from "./portal/Modal";
-import SideNav from "./SideNav";
+import SideNav from "../listings/SideNav";
 import Welcome from "./Welcome";
 
 const LayoutStyled = styled.div`
   display: grid;
+  overflow: hidden;
   grid-template-columns: ${(props) =>
     props.location.includes("/products")
       ? "2rem repeat(12, 1fr) 4rem"
@@ -97,6 +98,7 @@ function Layout() {
         <CustomRedBtn text={"Thanks for participating"} onClick={handleClose} />
       );
     }
+    return <CustomRedBtn text={"Close"} onClick={handleClose} />
   };
 
   return (
