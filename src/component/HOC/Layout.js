@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, {  useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -72,6 +72,9 @@ function Layout() {
     };
     // eslint-disable-next-line
   }, []);
+
+ 
+  
 
   const homeClickHandler = () => {
     if (pathname === "/") {

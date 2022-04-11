@@ -21,6 +21,7 @@
     "react-scripts": "5.0.0",
     "react-slider": "^2.0.0",
     "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "three": "0.138.3",
     "valtio": "^1.5.2",

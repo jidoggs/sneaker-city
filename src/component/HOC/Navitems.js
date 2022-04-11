@@ -31,12 +31,12 @@ const NavHeader = styled.nav`
     border-bottom: 2px solid #000000;
     transition: border-color 1s ease-out;
   }
+  .store,
   .cart {
     position: relative;
     cursor: pointer;
 
     span {
-      background-color: red;
       color: #fff;
       width: 1rem;
       height: 1rem;
@@ -49,12 +49,28 @@ const NavHeader = styled.nav`
       padding: 0.7rem;
     }
   }
+  .cart{
+    span{
+      background-color: red;
+    }
+  }
+  .store{
+    span{
+      background-color: green;
+    }
+  }
+  svg{
+    cursor: pointer;
+  }
 `;
 
 function Navitems() {
   const cartRef = useRef(null);
+  const likeRef = useRef(null);
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cartReducer.cart);
+  const saved = useSelector((state) => state.savedReducer.savedItems);
+  
 
   return (
     <NavHeader>
@@ -80,8 +96,9 @@ function Navitems() {
           <CartIcon cartRef={cartRef}  />
           {cart.length !== 0 && <span>{cart.length}</span>}
         </li>
-        <li>
-          <HeartIcon />
+        <li className="store" onClick={() => navigate("/saved-items")}>
+          <HeartIcon likeRef={likeRef} />
+          {saved.length !== 0 && <span>{saved.length}</span>}
         </li>
         <li>
           <UserIcon />

@@ -4,42 +4,17 @@ import { resultFilter } from "../../helpers";
 import ItemCard from "../ItemCard";
 
 function ListSelector({ type }) {
-  const newShoes = useSelector(
-    (state) => state.networkRequestReducer.newShoes.data
-  );
-  const allFilter = useSelector(
-    (state) => state.networkRequestReducer.newShoes.minMax?.filter
-  );
-  const menShoes = useSelector(
-    (state) => state.networkRequestReducer.menShoes.data
-  );
-  const menFilter = useSelector(
-    (state) => state.networkRequestReducer.menShoes.minMax?.filter
-  );
-  const womenShoes = useSelector(
-    (state) => state.networkRequestReducer.womenShoes.data
-  );
-  const womenFilter = useSelector(
-    (state) => state.networkRequestReducer.womenShoes.minMax?.filter
-  );
-  const childrenShoes = useSelector(
-    (state) => state.networkRequestReducer.childrenShoes.data
-  );
-  const childrenFilter = useSelector(
-    (state) => state.networkRequestReducer.childrenShoes.minMax?.filter
-  );
-  const selected = useSelector(
-    (state) => state.networkRequestReducer.brands.selected
-  );
+  const allShoes = useSelector((state) => state.networkRequestReducer);
+
+  const {newShoes , menShoes, womenShoes, childrenShoes, brands} = allShoes;
+
+  const savedItems = useSelector((state) => state.savedReducer.savedItems);
 
   let template = null;
 
   switch (type) {
     case "/products/new":
-      template =
-        //    newShoes
-        // .filter((itm) => allFilter.length > 0 ? (selected.length === 0 ? (itm.retailPrice >= allFilter[0] && itm.retailPrice <= allFilter[1]): (itm.retailPrice >= allFilter[0] && itm.retailPrice <= allFilter[1] && selected.includes(itm.brand))): selected.length > 0? selected.includes(itm.brand):itm)
-        resultFilter(newShoes, allFilter, selected).map((itm, id) => (
+      template = resultFilter(newShoes.data, newShoes.minMax?.filter, brands.selected).map((itm, id) => (
           <ItemCard
             key={id}
             title={itm.title}
@@ -50,7 +25,7 @@ function ListSelector({ type }) {
         ));
       break;
     case "/products/men":
-      template = resultFilter(menShoes, menFilter, selected).map((itm, id) => (
+      template = resultFilter(menShoes.data, menShoes.minMax?.filter, brands.selected).map((itm, id) => (
         <ItemCard
           key={id}
           title={itm.title}
@@ -61,7 +36,7 @@ function ListSelector({ type }) {
       ));
       break;
     case "/products/women":
-      template = resultFilter(womenShoes, womenFilter, selected).map(
+      template = resultFilter(womenShoes.data, womenShoes.minMax?.filter, brands.selected).map(
         (itm, id) => (
           <ItemCard
             key={id}
@@ -74,7 +49,7 @@ function ListSelector({ type }) {
       );
       break;
     case "/products/kids":
-      template = resultFilter(childrenShoes, childrenFilter, selected).map(
+      template = resultFilter(childrenShoes.data, childrenShoes.minMax?.filter, brands.selected).map(
         (itm, id) => (
           <ItemCard
             key={id}
@@ -85,6 +60,19 @@ function ListSelector({ type }) {
           />
         )
       );
+      break;
+    case "/saved-items":
+      template = (savedItems.map(
+        (itm, id) => (
+          <ItemCard
+            key={id}
+            title={itm.title}
+            price={itm.retailPrice}
+            id={itm.id}
+            image={itm.media.thumbUrl}
+          />
+        )
+      ));
       break;
 
     default:

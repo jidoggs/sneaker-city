@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { removeItem, saveItem } from "../../redux/actions/savedActions";
 import HeartIcon from "../customIcon/HeartIcon";
 
 const ProductCanvasStyle = styled.div`
@@ -7,7 +9,7 @@ const ProductCanvasStyle = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  padding:6rem 4rem;
+  padding: 6rem 4rem;
 `;
 const ShoeImage = styled.div`
   background-image: url(${(props) => props.image});
@@ -34,9 +36,39 @@ const TextWrapper = styled.div`
     line-height: 1.625rem;
     color: #000000a6;
   }
+  button {
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
 `;
 
 function ProductCanvas({ data }) {
+  const likeRef = useRef(null);
+  const savedItems = useSelector((state) => state.savedReducer.savedItems);
+  const dispatch = useDispatch();
+
+  const [liked, setLiked] = useState(null);
+
+  useLayoutEffect(() => {
+    if (savedItems.filter((itm) => itm.id === data.id).length > 0) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const saveItemClickHandler = () => {
+    setLiked(!liked);
+    if (liked) {
+      dispatch(removeItem(data));
+    } else {
+      dispatch(saveItem(data));
+    }
+  };
+
   return (
     <ProductCanvasStyle>
       <TextWrapper>
@@ -48,9 +80,19 @@ function ProductCanvas({ data }) {
           }}
         >
           <h2 className="title">{data?.title}</h2>
-          <HeartIcon />
+          <button onClick={saveItemClickHandler}>
+            <HeartIcon
+              style={{ fill: `${liked ? "red" : "none"}` }}
+              likeRef={likeRef}
+            />
+          </button>
         </div>
-        <p className="price">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data?.retailPrice)}</p>
+        <p className="price">
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).format(data?.retailPrice)}
+        </p>
       </TextWrapper>
       <ShoeImage image={data?.media?.imageUrl} />
     </ProductCanvasStyle>
