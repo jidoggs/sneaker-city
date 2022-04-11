@@ -1,16 +1,13 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import "rc-slider/assets/index.css";
 import CustomizedRange from "./Silder";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBrandToFilter,
-  fetchBrandsError,
-  fetchBrandsSuccess,
   removeBrandToFilter,
 } from "../../redux/actions/requestActions";
-import { btnArr, capitalizeEachWord } from "../../helpers";
+import { appearOnce, btnArr, capitalizeEachWord } from "../../helpers";
 import { useLocation } from "react-router-dom";
 
 const RangeWrapper = styled.div`
@@ -83,65 +80,53 @@ const GroupWrapper = styled.div`
 `;
 
 function SideNav({ className }) {
-  const brands = useSelector(
-    (state) => state.networkRequestReducer.brands.data
-  );
-  const newShoes = useSelector(
-    (state) => state.networkRequestReducer.newShoes.minMax
-  );
-  const menShoes = useSelector(
-    (state) => state.networkRequestReducer.menShoes.minMax
-  );
-  const womenShoes = useSelector(
-    (state) => state.networkRequestReducer.womenShoes.minMax
-  );
-  const childrenShoes = useSelector(
-    (state) => state.networkRequestReducer.childrenShoes.minMax
-  );
+  const networkShoes = useSelector((state) => state.networkRequestReducer);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const switchMinMax = () => {
+    const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
     if (pathname === "/products/new") {
-      return newShoes;
+      return newShoes.minMax;
     }
     if (pathname === "/products/men") {
-      return menShoes;
+      return menShoes.minMax;
     }
     if (pathname === "/products/women") {
-      return womenShoes;
+      return womenShoes.minMax;
     }
     if (pathname === "/products/kids") {
-      return childrenShoes;
+      return childrenShoes.minMax;
+    }
+  };
+
+  const switchBrands = () => {
+    const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
+    if (pathname === "/products/new") {
+      return appearOnce(
+        newShoes.data.map((item) => capitalizeEachWord(item.brand))
+      );
+    }
+    if (pathname === "/products/men") {
+      return appearOnce(
+        menShoes.data.map((item) => capitalizeEachWord(item.brand))
+      );
+    }
+    if (pathname === "/products/women") {
+      return appearOnce(
+        womenShoes.data.map((item) => capitalizeEachWord(item.brand))
+      );
+    }
+    if (pathname === "/products/kids") {
+      return appearOnce(
+        childrenShoes.data.map((item) => capitalizeEachWord(item.brand))
+      );
     }
   };
 
   const result = switchMinMax();
 
-  useEffect(() => {
-    if (brands.length < 1) {
-      const options = {
-        method: "GET",
-        url: "https://v1-sneakers.p.rapidapi.com/v1/brands",
-        headers: {
-          "X-RapidAPI-Host": "v1-sneakers.p.rapidapi.com",
-          "X-RapidAPI-Key":
-            "25fc60c808msh221fbd0ae3cb637p1e48c2jsndcedce7a559e",
-        },
-      };
-
-
-      axios
-        .request(options)
-        .then(function (response) {
-          dispatch(fetchBrandsSuccess(response.data.results));
-        })
-        .catch(function (error) {
-          dispatch(fetchBrandsError(error));
-        });
-    }
-    // eslint-disable-next-line
-  }, []);
+  const brands = switchBrands();
 
   const brandOnClickHandler = (e) => {
     const value = capitalizeEachWord(e.target.value);
@@ -194,11 +179,11 @@ function SideNav({ className }) {
       <RangeWrapper>
         <GroupWrapper>
           <h5>Price range</h5>
-          <CustomizedRange
-            lower={result.min}
-            upper={result.max}
-            state={[result.min, result.max]}
-          />
+          {brands && <CustomizedRange
+            lower={result?.min}
+            upper={result?.max}
+            state={[result?.min, result?.max]}
+          />}
         </GroupWrapper>
       </RangeWrapper>
       <GroupWrapper>

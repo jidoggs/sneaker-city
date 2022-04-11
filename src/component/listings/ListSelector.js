@@ -8,25 +8,25 @@ function ListSelector({ type }) {
     (state) => state.networkRequestReducer.newShoes.data
   );
   const allFilter = useSelector(
-    (state) => state.networkRequestReducer.newShoes.minMax.filter
+    (state) => state.networkRequestReducer.newShoes.minMax?.filter
   );
   const menShoes = useSelector(
     (state) => state.networkRequestReducer.menShoes.data
   );
   const menFilter = useSelector(
-    (state) => state.networkRequestReducer.menShoes.minMax.filter
+    (state) => state.networkRequestReducer.menShoes.minMax?.filter
   );
   const womenShoes = useSelector(
     (state) => state.networkRequestReducer.womenShoes.data
   );
   const womenFilter = useSelector(
-    (state) => state.networkRequestReducer.womenShoes.minMax.filter
+    (state) => state.networkRequestReducer.womenShoes.minMax?.filter
   );
   const childrenShoes = useSelector(
     (state) => state.networkRequestReducer.childrenShoes.data
   );
   const childrenFilter = useSelector(
-    (state) => state.networkRequestReducer.childrenShoes.minMax.filter
+    (state) => state.networkRequestReducer.childrenShoes.minMax?.filter
   );
   const selected = useSelector(
     (state) => state.networkRequestReducer.brands.selected

@@ -23,7 +23,10 @@ function Product() {
       url: `https://v1-sneakers.p.rapidapi.com/v1/sneakers/${id}`,
       headers: {
         "X-RapidAPI-Host": "v1-sneakers.p.rapidapi.com",
-        "X-RapidAPI-Key": "25fc60c808msh221fbd0ae3cb637p1e48c2jsndcedce7a559e",
+        "X-RapidAPI-Key": 
+        // "25fc60c808msh221fbd0ae3cb637p1e48c2jsndcedce7a559e",
+        // "6a9e1ed7d0mshad15c22d4814a43p1aa588jsnb5eab34da227",
+        "c08c020cb4msh1cac15acce21030p1084f0jsna581e807075f",
       },
     };
 

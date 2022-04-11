@@ -136,3 +136,14 @@ export const resultFilter = (parentArr, priceArr, brandArr) => {
       : itm
   );
 };
+
+export const appearOnce = (inputArr) => {
+  const resultObj = {};
+  for (let i = 0; i < inputArr.length; i++) {
+    const element = inputArr[i];
+    if (!resultObj[element]) {
+      resultObj[element] = 0;
+    }
+  }
+  return Object.keys(resultObj);
+};

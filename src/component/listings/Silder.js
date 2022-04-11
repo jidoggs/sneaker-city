@@ -32,6 +32,7 @@ const dispatch = useDispatch()
 
   useEffect(() => {
       setValue(state)
+      // eslint-disable-next-line
   }, [lower])
   
 
