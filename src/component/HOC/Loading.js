@@ -22,7 +22,7 @@ const dot = {
   visible:{
     opacity: 0,
     transition:{
-      yoyo: 30
+      repeat: Infinity, repeatDelay: 0.4
     }
   }
 }

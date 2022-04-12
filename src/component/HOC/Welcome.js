@@ -73,14 +73,17 @@ const sentence = {
 
 const newSentence = {
   hidden: {
-    opacity: 1,
+    opacity: 0,
     x: 200,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      delay: 5,
+      delay: 0.1,
+      type: "spring",
+      stiffness: 400,
+      bounce:1
     },
   },
 };
@@ -107,7 +110,7 @@ const hideDash = {
   visible: {
     opacity: 0,
     transition: {
-      yoyo: 21,
+      repeat: Infinity, repeatDelay: 0.4
     },
   },
 };
@@ -140,10 +143,11 @@ function Welcome() {
           <Brand />
           {state ? (
             <Sentence
+              key={"longBrandNmae"}
               variants={sentence}
               initial="hidden"
               animate="visible"
-              exit={{ y: [-50, 50, 0], opacity: 0 }}
+              exit={{ y: [-50, 50, 0], opacity: 0, display:"none" }}
             >
               {textConent.split("").map((char, idx) => (
                 <motion.span
@@ -177,6 +181,8 @@ function Welcome() {
               variants={newSentence}
               initial="hidden"
               animate="visible"
+              key={"shortBrandNmae"}
+
             >
               {finalTextConent.split("").map((char, idx) => (
                 <motion.span
