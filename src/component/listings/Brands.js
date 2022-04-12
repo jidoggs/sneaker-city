@@ -1,72 +1,84 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { capitalizeEachWord } from "../../helpers";
-import { addBrandToFilter, removeBrandToFilter } from "../../redux/actions/requestActions";
+import styled from "styled-components";
+import { returnArrayofObjects } from "../../helpers";
+import BrandTitle from "./BrandTitle";
+import Checked from "./Checked";
+
+const Container = styled.div`
+  height: 12.5rem;
+  overflow-x: scroll;
+`;
+const BrandsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 function Brands() {
+  const networkShoes = useSelector((state) => state.networkRequestReducer);
   const { pathname } = useLocation();
-  const state = useSelector((state) => state.networkRequestReducer);
+  const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
+
   const [brands, setBrands] = useState([]);
-  const dispatch = useDispatch()
+  const [length, setLength] = useState(0);
 
-
-  const brandOnClickHandler = (e) => { 
-    const value = capitalizeEachWord(e.target.value)
-    if (e.target.checked) {
-      dispatch(addBrandToFilter(value))
-    }else{
-      dispatch(removeBrandToFilter(value))
+  const lenghtBaseLocation = () => {
+    if (pathname === "/products/new") {
+      return newShoes?.data?.length;
     }
-   }
+    if (pathname === "/products/men") {
+      return menShoes?.data?.length;
+    }
+    if (pathname === "/products/women") {
+      return womenShoes?.data?.length;
+    }
+    if (pathname === "/products/kids") {
+      return childrenShoes?.data?.length;
+    }
+  };
+
+  const prevLenth = useMemo(() => lenghtBaseLocation());//eslint-disable-line
 
   useEffect(() => {
-    if ((pathname === "/product/new")) {
-      setBrands(state.newShoes.data);
+    setLength(lenghtBaseLocation());
+  }, [prevLenth]);//eslint-disable-line
+
+  useEffect(() => {
+    if (length > 0) {
+      if (pathname === "/products/new") {
+        setBrands(returnArrayofObjects(newShoes?.brands));
+      }
+      if (pathname === "/products/men") {
+        setBrands(returnArrayofObjects(menShoes?.brands));
+      }
+      if (pathname === "/products/women") {
+        setBrands(returnArrayofObjects(womenShoes?.brands));
+      }
+      if (pathname === "/products/kids") {
+        setBrands(returnArrayofObjects(childrenShoes?.brands));
+      }
     }
-    if ((pathname === "/product/men")) {
-      setBrands(state.menShoes.data);
-    }
-    if ((pathname === "/product/women")) {
-      setBrands(state.womenShoes.data);
-    }
-    if ((pathname === "/product/kids")) {
-      setBrands(state.childrenShoes.data);
-    }
-  }, [pathname]);
+  }, [pathname, length]);//eslint-disable-line
+
 
   return (
     <>
-      <h5>Brand</h5>
-      {brands && (
-        <div style={{ height: "200px", overflowX: "scroll" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {brands.map((brand, id) => {
-              return (
-                <label key={id}>
-                  <span>{brand}</span>
-                  {brand === "ALL" ? (
-                    <input
-                      type="checkbox"
-                      name={brand}
-                      value={brand}
-                      defaultChecked
-                    />
-                  ) : (
-                    <input
-                      type="checkbox"
-                      name={brand}
-                      value={brand}
-                      onClick={brandOnClickHandler}
-                    />
-                  )}
-                  <span className="checkmark"></span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      <BrandTitle />
+      <Container>
+        <BrandsContainer>
+          {brands.map((brand, id) => {
+            return (
+              <Checked
+                key={id}
+                brand={brand.name}
+                isChecked={brand.isChecked}
+                setBrands={setBrands}
+              />
+            );
+          })}
+        </BrandsContainer>
+      </Container>
     </>
   );
 }

@@ -6,7 +6,7 @@ import ItemCard from "../ItemCard";
 function ListSelector({ type }) {
   const allShoes = useSelector((state) => state.networkRequestReducer);
 
-  const {newShoes , menShoes, womenShoes, childrenShoes, brands} = allShoes;
+  const {newShoes , menShoes, womenShoes, childrenShoes, brandsFilter} = allShoes;
 
   const savedItems = useSelector((state) => state.savedReducer.savedItems);
 
@@ -14,7 +14,7 @@ function ListSelector({ type }) {
 
   switch (type) {
     case "/products/new":
-      template = resultFilter(newShoes.data, newShoes.minMax?.filter, brands.selected).map((itm, id) => (
+      template = resultFilter(newShoes.data, newShoes.minMax?.filter, brandsFilter).map((itm, id) => (
           <ItemCard
             key={id}
             title={itm.title}
@@ -25,7 +25,7 @@ function ListSelector({ type }) {
         ));
       break;
     case "/products/men":
-      template = resultFilter(menShoes.data, menShoes.minMax?.filter, brands.selected).map((itm, id) => (
+      template = resultFilter(menShoes.data, menShoes.minMax?.filter, brandsFilter).map((itm, id) => (
         <ItemCard
           key={id}
           title={itm.title}
@@ -36,7 +36,7 @@ function ListSelector({ type }) {
       ));
       break;
     case "/products/women":
-      template = resultFilter(womenShoes.data, womenShoes.minMax?.filter, brands.selected).map(
+      template = resultFilter(womenShoes.data, womenShoes.minMax?.filter, brandsFilter).map(
         (itm, id) => (
           <ItemCard
             key={id}
@@ -49,7 +49,7 @@ function ListSelector({ type }) {
       );
       break;
     case "/products/kids":
-      template = resultFilter(childrenShoes.data, childrenShoes.minMax?.filter, brands.selected).map(
+      template = resultFilter(childrenShoes.data, childrenShoes.minMax?.filter, brandsFilter).map(
         (itm, id) => (
           <ItemCard
             key={id}

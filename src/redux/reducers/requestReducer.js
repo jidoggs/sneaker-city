@@ -1,10 +1,11 @@
+import { appearOnce, capitalizeEachWord } from "../../helpers";
 import {
   ADD_FILTER_BRAND,
+  CHILDRENSHOE_BRANDS,
+  CLEAR_FILTER_BRANDS,
   DATA_ISLOADING,
   FETCH_ALL_SHOES_FAIL,
   FETCH_ALL_SHOES_SUCCESS,
-  FETCH_BRANDS_FAIL,
-  FETCH_BRANDS_SUCCESS,
   FETCH_CHILDREN_SHOES_FAIL,
   FETCH_CHILDREN_SHOES_SUCCESS,
   FETCH_MEN_SHOES_FAIL,
@@ -15,11 +16,14 @@ import {
   FILTER__PRICE__CHILDRENSHOES,
   FILTER__PRICE__MENSHOES,
   FILTER__PRICE__WOMENSHOES,
+  MENSHOE_BRANDS,
   MINMAX__ALLSHOES,
   MINMAX__CHILDRENSHOES,
   MINMAX__MENSHOES,
   MINMAX__WOMENSHOES,
+  NEWSHOE_BRANDS,
   REMOVE_FILTER_BRAND,
+  WOMENSHOE_BRANDS,
 } from "../types/requestTypes";
 
 const initialState = {
@@ -27,45 +31,44 @@ const initialState = {
   newShoes: {
     error: null,
     data: [],
+    brands:[],
     minMax:{
       min: 0,
-      max: null,
+      max: 100,
       filter: []
     }
   },
   menShoes: {
     error: null,
     data: [],
+    brands:[],
     minMax:{
       min: 0,
-      max: null,
+      max: 100,
       filter: []
     }
   },
   womenShoes: {
     error: null,
     data: [],
+    brands:[],
     minMax:{
       min: 0,
-      max: null,
+      max: 100,
       filter: []
     }
   },
   childrenShoes: {
     error: null,
     data: [],
+    brands:[],
     minMax:{
       min: 0,
-      max: null,
+      max: 100,
       filter: []
     }
   },
-  brands:{
-    isBrandLoading: true,
-    data:[],
-    error:null,
-    selected:[]
-  }
+  brandsFilter:[]
 };
 
 export default function appReducer(state = initialState, { type, payload }) {
@@ -92,6 +95,16 @@ export default function appReducer(state = initialState, { type, payload }) {
         newShoes:{
           error: payload,
           data: []
+        }
+      };
+    case NEWSHOE_BRANDS:
+      return {
+        ...state,
+        newShoes:{
+          ...state.newShoes,
+          brands: appearOnce(
+            state.newShoes.data.map((item) => capitalizeEachWord(item.brand))
+          )
         }
       };
     case MINMAX__ALLSHOES:
@@ -134,6 +147,16 @@ export default function appReducer(state = initialState, { type, payload }) {
         menShoes:{
           error: payload,
           data: []
+        }
+      };
+    case MENSHOE_BRANDS:
+      return {
+        ...state,
+        menShoes:{
+          ...state.menShoes,
+          brands: appearOnce(
+            state.menShoes.data.map((item) => capitalizeEachWord(item.brand))
+          )
         }
       };
     case MINMAX__MENSHOES:
@@ -179,6 +202,17 @@ export default function appReducer(state = initialState, { type, payload }) {
           data: []
         }
       };
+
+    case WOMENSHOE_BRANDS:
+      return {
+        ...state,
+        womenShoes:{
+          ...state.womenShoes,
+          brands: appearOnce(
+            state.womenShoes.data.map((item) => capitalizeEachWord(item.brand))
+          )
+        }
+      };
       case MINMAX__WOMENSHOES:
       return {
         ...state,
@@ -221,6 +255,16 @@ export default function appReducer(state = initialState, { type, payload }) {
           data: []
         }
       };
+    case CHILDRENSHOE_BRANDS:
+      return {
+        ...state,
+        childrenShoes:{
+          ...state.childrenShoes,
+          brands: appearOnce(
+            state.childrenShoes.data.map((item) => capitalizeEachWord(item.brand))
+          )
+        }
+      };
       case MINMAX__CHILDRENSHOES:
       return {
         ...state,
@@ -244,41 +288,21 @@ export default function appReducer(state = initialState, { type, payload }) {
           }
         }
       };
-    case FETCH_BRANDS_SUCCESS:
-      return {
-        ...state,
-        brands:{
-          isBrandLoading:false,
-          error:null,
-          selected: [],
-          data:payload
-        }
-      };
-    case FETCH_BRANDS_FAIL:
-      return {
-        ...state,
-        brands:{
-          isBrandLoading:false,
-          error:payload,
-          selected: [],
-          data:[],
-        }
-      };
     case ADD_FILTER_BRAND:
       return {
         ...state,
-        brands:{
-          ...state.brands,          
-          selected: [...state.brands.selected, payload],
-        }
+        brandsFilter:[...state.brandsFilter, payload]
       };
     case REMOVE_FILTER_BRAND:
       return {
         ...state,
-        brands:{
-          ...state.brands,          
-          selected: state.brands.selected.filter(selectItem => selectItem !== payload),
-        }
+        brandsFilter:state.brandsFilter.filter(selectItem => selectItem !== payload) ,
+        
+      };
+    case CLEAR_FILTER_BRANDS:
+      return {
+        ...state,
+        brandsFilter:[]
       };
     
 

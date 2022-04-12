@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Brand from '../customIcon/Brand';
 import {motion} from 'framer-motion'
+import { useLocation } from 'react-router-dom';
 
 const StlyedText = styled.div`
     font-size: 2rem;
     color: black;
 
-    height: 75vh;
+    height: ${props => props.location.includes("/products/")? "60vh": "75vh"};
+    grid-column: 1/-1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,8 +28,9 @@ const dot = {
 }
 
 function Loading() {
+  const{pathname}=useLocation()
   return (
-    <StlyedText>
+    <StlyedText location={pathname}>
       <Brand/>Loading<motion.span variants={dot} initial="hidden" animate="visible" >.</motion.span>
     </StlyedText>
   )

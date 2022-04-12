@@ -2,13 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import "rc-slider/assets/index.css";
 import CustomizedRange from "./Silder";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addBrandToFilter,
-  removeBrandToFilter,
-} from "../../redux/actions/requestActions";
-import { appearOnce, btnArr, capitalizeEachWord } from "../../helpers";
+import { useSelector } from "react-redux";
+import { btnArr } from "../../helpers";
 import { useLocation } from "react-router-dom";
+import Brands from "./Brands";
 
 const RangeWrapper = styled.div`
   border-top: 1px solid #00000026;
@@ -66,26 +63,18 @@ const GroupWrapper = styled.div`
       /* When the radio button is checked, add a blue background */
       &:checked ~ .checkmark {
         background-color: #17cbf2;
+        /* background-color: red; */
       }
     }
-  }
-
-  h5 {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
-    color: #000;
-    padding-bottom: 1rem;
   }
 `;
 
 function SideNav({ className }) {
   const networkShoes = useSelector((state) => state.networkRequestReducer);
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
 
-  const switchMinMax = () => {
-    const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
+  const switchMinMax = (pathname) => {
     if (pathname === "/products/new") {
       return newShoes.minMax;
     }
@@ -100,42 +89,7 @@ function SideNav({ className }) {
     }
   };
 
-  const switchBrands = () => {
-    const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
-    if (pathname === "/products/new") {
-      return appearOnce(
-        newShoes.data.map((item) => capitalizeEachWord(item.brand))
-      );
-    }
-    if (pathname === "/products/men") {
-      return appearOnce(
-        menShoes.data.map((item) => capitalizeEachWord(item.brand))
-      );
-    }
-    if (pathname === "/products/women") {
-      return appearOnce(
-        womenShoes.data.map((item) => capitalizeEachWord(item.brand))
-      );
-    }
-    if (pathname === "/products/kids") {
-      return appearOnce(
-        childrenShoes.data.map((item) => capitalizeEachWord(item.brand))
-      );
-    }
-  };
-
-  const result = switchMinMax();
-
-  const brands = switchBrands();
-
-  const brandOnClickHandler = (e) => {
-    const value = capitalizeEachWord(e.target.value);
-    if (e.target.checked) {
-      dispatch(addBrandToFilter(value));
-    } else {
-      dispatch(removeBrandToFilter(value));
-    }
-  };
+  const result = switchMinMax(pathname);
 
   return (
     <form
@@ -145,45 +99,16 @@ function SideNav({ className }) {
       }}
     >
       <GroupWrapper>
-        <h5>Brand</h5>
-        {brands && (
-          <div style={{ height: "200px", overflowX: "scroll" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {brands.map((brand, id) => {
-                return (
-                  <label key={id}>
-                    <span>{brand}</span>
-                    {brand === "ALL" ? (
-                      <input
-                        type="checkbox"
-                        name={brand}
-                        value={brand}
-                        defaultChecked
-                      />
-                    ) : (
-                      <input
-                        type="checkbox"
-                        name={brand}
-                        value={brand}
-                        onClick={brandOnClickHandler}
-                      />
-                    )}
-                    <span className="checkmark"></span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-        )}
+        <Brands />
       </GroupWrapper>
       <RangeWrapper>
         <GroupWrapper>
           <h5>Price range</h5>
-          {brands && <CustomizedRange
+          <CustomizedRange
             lower={result?.min}
             upper={result?.max}
             state={[result?.min, result?.max]}
-          />}
+          />
         </GroupWrapper>
       </RangeWrapper>
       <GroupWrapper>

@@ -68,14 +68,17 @@ function NewArrival() {
       },
     };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      dispatch(fetchShoesData(response.data.results.filter((itm) => itm.media.thumbUrl !== null)))
-    })
-    .catch(function (error) {
-      dispatch(fetchShoesError(error))
-    });
+    if(result.length === 0){
+      axios
+        .request(options)
+        .then(function (response) {
+          dispatch(fetchShoesData(response.data.results.filter((itm) => itm.media.thumbUrl !== null)))
+        })
+        .catch(function (error) {
+          dispatch(fetchShoesError(error))
+        });
+    }
+    //eslint-disable-next-line
   }, [dispatch])
 
  

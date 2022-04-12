@@ -124,17 +124,17 @@ export const capitalizeEachWord = (str) => {
 };
 
 export const resultFilter = (parentArr, priceArr, brandArr) => {
-  return parentArr.filter((itm) =>
-    priceArr.length > 0
+  return parentArr.filter((itm) => {
+    return priceArr.length > 0
       ? brandArr.length === 0
         ? itm.retailPrice >= priceArr[0] && itm.retailPrice <= priceArr[1]
         : itm.retailPrice >= priceArr[0] &&
           itm.retailPrice <= priceArr[1] &&
-          brandArr.includes(itm.brand)
+          brandArr.includes(capitalizeEachWord(itm.brand))
       : brandArr.length > 0
-      ? brandArr.includes(itm.brand)
-      : itm
-  );
+      ? brandArr.includes(capitalizeEachWord(itm.brand))
+      : itm;
+  });
 };
 
 export const appearOnce = (inputArr) => {
@@ -147,3 +147,13 @@ export const appearOnce = (inputArr) => {
   }
   return Object.keys(resultObj);
 };
+
+export function returnArrayofObjects(arr) {
+  const resultArr = [];
+  for (let i = 0; i < arr?.length; i++) {
+    const element = arr[i];
+    resultArr.push({ name: capitalizeEachWord(element), isChecked: false });
+  }
+
+  return resultArr;
+}

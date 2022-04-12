@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import Loading from "../component/HOC/Loading";
 import ListSelector from "../component/listings/ListSelector";
-import { fetchChildrenShoesData, fetchChildrenShoesError, fetchMenShoesData, fetchMenShoesError, fetchShoesData, fetchShoesError, fetchWomenShoesData, fetchWomenShoesError, minMaxAll, minMaxChildren, minMaxMen, minMaxWomen } from "../redux/actions/requestActions";
+import ListTitle from "../component/listings/ListTitle";
+import { dispatchFetchFailure, dispatchFetchSuccess, loadingData } from "../redux/actions/requestActions";
 const ItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -16,62 +18,13 @@ const ItemWrapper = styled.div`
     color: inherit;
   }
 `;
-const Title = styled.h2`
-  margin: 2rem 0;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-  letter-spacing: 0em;
-`;
 
 function Listing() {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const newShoes = useSelector((state) => state.networkRequestReducer.newShoes.data);
-  const menShoes = useSelector((state) => state.networkRequestReducer.menShoes.data);
-  const womenShoes = useSelector((state) => state.networkRequestReducer.womenShoes.data);
-  const childrenShoes = useSelector((state) => state.networkRequestReducer.childrenShoes.data);
+  const allShoes = useSelector((state) => state.networkRequestReducer);
+  const {newShoes,menShoes,womenShoes,childrenShoes, isLoading} = allShoes;
 
-  const renderTitle = () => {
-    if (pathname === "/products/new") {
-      return "The new arrivals";
-    } else {
-      return `For ${pathname.substring(10)}`;
-    }
-  };
-
-  const dispatchSuccess = (data) => { 
-    if (pathname === "/products/new") {
-          dispatch(fetchShoesData(data))
-          dispatch(minMaxAll())
-        }
-        if (pathname === "/products/men") {
-          dispatch(fetchMenShoesData(data))
-          dispatch(minMaxMen())
-        }
-        if (pathname === "/products/women") {
-          dispatch(fetchWomenShoesData(data))
-          dispatch(minMaxWomen())
-        }
-        if (pathname === "/products/kids") {
-          dispatch(fetchChildrenShoesData(data))
-          dispatch(minMaxChildren())
-    }
-   }
-  const dispatchFailure = (data) => { 
-    if (pathname === "/products/new") {
-          dispatch(fetchShoesError(data))
-    }
-    if (pathname === "/products/men") {
-          dispatch(fetchMenShoesError(data))
-    }
-    if (pathname === "/products/women") {
-          dispatch(fetchWomenShoesError(data))
-    }
-    if (pathname === "/products/kids") {
-          dispatch(fetchChildrenShoesError(data))
-    }
-   }
 
   useEffect(() => {
     let options = null;
@@ -117,14 +70,15 @@ function Listing() {
       };
     }
 
-    if ((pathname === "/products/new" &&  newShoes.length <= 10) || (pathname === "/products/men" &&  menShoes.length <= 10 )|| (pathname === "/products/women" &&  womenShoes.length <= 10 )|| (pathname === "/products/kids" &&  childrenShoes.length <= 10)) {
+    if ((pathname === "/products/new" &&  newShoes.data.length <= 10) || (pathname === "/products/men" &&  menShoes.data.length <= 10 )|| (pathname === "/products/women" &&  womenShoes.data.length <= 10 )|| (pathname === "/products/kids" &&  childrenShoes.data.length <= 10)) {
+      dispatch(loadingData())
       axios
         .request(options)
         .then(function (response) {
-          dispatchSuccess(response.data.results.filter((itm) => itm.media.thumbUrl !== null));
+          dispatchFetchSuccess(pathname, dispatch, response.data.results.filter((itm) => itm.media.thumbUrl !== null));
         })
         .catch(function (error) {
-          dispatchFailure(error);
+          dispatchFetchFailure(pathname, dispatch,error);
         });
       
     }
@@ -132,9 +86,9 @@ function Listing() {
 
   return (
     <>
-      <Title>{renderTitle()}</Title>
+      <ListTitle />
       <ItemWrapper>
-            <ListSelector type={pathname} />
+          {isLoading ? <Loading /> :<ListSelector type={pathname} />}
       </ItemWrapper>
     </>
   );

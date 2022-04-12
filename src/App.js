@@ -3,6 +3,7 @@ import Layout from "./component/HOC/Layout";
 import Cart from "./pages/Cart";
 import Customshoe from "./pages/Customshoe";
 import Details from "./pages/Details";
+import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
 import SavedItems from "./pages/SavedItems";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/customProduct" element={<Customshoe />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/saved-items" element={<SavedItems />} />
+        <Route path="*" element={<Error />} />
       </Route>
     </Routes>
   );
