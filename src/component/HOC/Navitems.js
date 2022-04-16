@@ -12,6 +12,10 @@ const NavHeader = styled.nav`
   justify-content: space-between;
   align-items: center;
 
+  @media (max-width: 1024px) {
+    display: none;
+  }
+
   ul,
   li {
     list-style: none;

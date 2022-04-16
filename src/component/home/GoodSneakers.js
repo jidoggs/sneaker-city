@@ -13,7 +13,7 @@ const Container = styled.section`
   }
 
   h2 {
-    font-size: 2.25rem;
+    font-size: 2.25em;
     font-weight: 700;
     line-height: 2.75rem;
     text-align: center;
@@ -38,7 +38,7 @@ const Container = styled.section`
     padding-bottom: 8rem;
     height: 32rem;
     p {
-      font-size: 24px;
+      font-size: 1.5em;
       line-height: 32px;
       color: #000000;
       padding: 0;

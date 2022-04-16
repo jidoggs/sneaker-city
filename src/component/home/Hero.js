@@ -12,6 +12,9 @@ import Scene from "./Scene";
 
 const Container = styled.div`
   display: flex;
+  @media (max-width: 974px) {
+    flex-direction:column;
+  }
 `;
 const BtnWrapper = styled.div`
   display: flex;
@@ -24,6 +27,9 @@ const TextContainer = styled.div`
   justify-content: center;
   row-gap: 2rem;
   flex: 1;
+  @media (max-width: 974px) {
+    padding-top:2rem;
+  }
 `;
 
 const HomeHeadline = styled.h1`
@@ -82,7 +88,7 @@ function Hero() {
           />
         </BtnWrapper>
       </TextContainer>
-      <Canvas style={{ height: "70vh", flex: 1 }}>
+      <Canvas style={{ height: "70vh", flex: 1, zIndex:1 }}>
         <Suspense fallback={null}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />

@@ -6,7 +6,7 @@ const CanvasStyled = styled.canvas`
 
   background-image: url(${props => props.image});
   width: 100%;
-  height: 308px;
+  /* height: 308px; */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;

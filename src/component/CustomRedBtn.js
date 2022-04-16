@@ -9,7 +9,7 @@ const Button = styled.button`
   cursor: ${props => props.disabled? "no-drop" : "pointer" };
 
   span {
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 700;
     line-height: 24px;
     letter-spacing: 0em;

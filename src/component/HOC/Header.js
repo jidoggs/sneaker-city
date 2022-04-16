@@ -10,6 +10,10 @@ const HeaderStyled = styled.header`
   align-items: center;
   padding: 24px 0;
   border: 1px solid #00000026;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  background-color: #ffffff;
 
   & > a {
     grid-column: 2/4;

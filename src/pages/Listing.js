@@ -12,6 +12,13 @@ const ItemWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   column-gap: 1.5rem;
   row-gap: 4rem;
+  
+  @media(max-width: 1160px){
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media(max-width:  869px){
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   & > a {
     text-decoration: none;
