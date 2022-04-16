@@ -6,21 +6,26 @@ import Instagram from "../customIcon/Instagram";
 import Logo from "../customIcon/Logo";
 import Twitter from "../customIcon/Twitter";
 
-const FooterStyle = styled.footer`
-  display: ${(props) =>
-    props.location.includes("/product/") || props.location === "/customProduct"
-      ? "none"
-      : "block"};
+const FooterStyle = styled.footer.attrs((props) => ({
+  style: {
+    display:
+      props.location.includes("/product/") ||
+      props.location === "/customProduct"
+        ? "none"
+        : "block",
+
+    padding:
+      props.location === "/"
+        ? "4rem 0"
+        : props.location.includes("/products")
+        ? "2rem 0 4rem 0"
+        : props.location === "/cart" || props.location === "/saved-items"
+        ? "4rem 0 8rem 0"
+        : "0",
+  },
+}))`
   flex-direction: column;
   border-top: 1px solid #00000026;
-  padding: ${(props) =>
-    props.location === "/"
-      ? "4rem 0"
-      : props.location.includes("/products")
-      ? "2rem 0 4rem 0"
-      : props.location === "/cart"
-      ? "4rem 0 8rem 0"
-      : "0"};
 
   .logo {
     margin-bottom: 2rem;
@@ -45,13 +50,13 @@ const FooterStyle = styled.footer`
       grid-row: ${(props) =>
         props.location.includes("/products") ? "1/2" : "2/3"};
 
-        display: flex;
-        column-gap: 0.75rem;
-        align-items: center;
+      display: flex;
+      column-gap: 0.75rem;
+      align-items: center;
 
-        svg{
-          cursor: pointer;
-        }
+      svg {
+        cursor: pointer;
+      }
     }
     p:nth-child(2) {
       grid-column: ${(props) =>
@@ -88,7 +93,11 @@ function Footer() {
         science of good sneakers.
       </p>
       <div className="address">
-        <p>Don’t miss out on solid deals:<Twitter/> <Instagram /><Facebook /></p>
+        <p>
+          Don’t miss out on solid deals:
+          <Twitter /> <Instagram />
+          <Facebook />
+        </p>
         <p>
           Support line: <span>+250 788 467 808</span>
         </p>

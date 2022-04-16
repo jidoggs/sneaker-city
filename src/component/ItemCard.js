@@ -2,15 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const CanvasStyled = styled.canvas`
+const CanvasStyled = styled.canvas.attrs(props => ({
+  style:{
+    backgroundImage: `url(${props.image})`,
+    backgroundColor: `${props.color}`
+  }
+}))`
 
-  background-image: url(${props => props.image});
   width: 100%;
-  /* height: 308px; */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  background-color: ${props => props.color};
 `
 
 
