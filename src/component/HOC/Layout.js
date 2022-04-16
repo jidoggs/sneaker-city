@@ -20,9 +20,18 @@ const LayoutStyled = styled.div`
       : "4rem repeat(12, 1fr) 4rem"};
 
   .sideNav {
+    height: 100vh;
+    padding-top:90px;
     grid-column: 2/5;
     display: ${(props) =>
       props.location.includes("/products") ? "block" : "none"};
+      position:fixed;
+      inset: 0 74% 0 2rem;
+
+@media(max-width: 1169px){
+    grid-column: 2/6;
+  }
+
 
     .checkBox {
       display: flex;
@@ -31,6 +40,7 @@ const LayoutStyled = styled.div`
     }
   }
   section {
+    padding-top: 90px;
     grid-column: ${(props) =>
       props.location.includes("/products")
         ? "5/-2"
@@ -45,6 +55,17 @@ const LayoutStyled = styled.div`
       props.location === "/customProduct"
         ? "4rem repeat(12, 1fr) 4rem"
         : "unset"};
+  @media(max-width: 1169px){
+    padding-left: ${(props) =>
+      props.location.includes("/products") ? "1rem" : "0"};
+    grid-column: ${(props) =>
+      props.location.includes("/products")
+        ? "6/-2"
+        : props.location.includes("/product/") ||
+          props.location === "/customProduct"
+        ? "1/-1"
+        : "2/-2"};
+  }
   }
 `;
 

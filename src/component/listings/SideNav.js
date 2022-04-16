@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { btnArr } from "../../helpers";
 import { useLocation } from "react-router-dom";
 import Brands from "./Brands";
+import { Title } from "./BrandTitle";
 
 const RangeWrapper = styled.div`
   border-top: 1px solid #00000026;
@@ -13,8 +14,12 @@ const RangeWrapper = styled.div`
 `;
 
 const BtnWrapper = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem; */
+  
+  display:flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
 
   button {
@@ -23,11 +28,13 @@ const BtnWrapper = styled.div`
     outline: none;
     border: 1px solid #00000026;
     cursor: pointer;
+    
+    /* flex: 1; */
   }
 `;
 
 const GroupWrapper = styled.div`
-  padding: 2rem;
+  padding: 1rem 1.5rem;
 
   label {
     display: block;
@@ -103,7 +110,7 @@ function SideNav({ className }) {
       </GroupWrapper>
       <RangeWrapper>
         <GroupWrapper>
-          <h5>Price range</h5>
+        <Title>Price range</Title>
           <CustomizedRange
             lower={result?.min}
             upper={result?.max}
@@ -112,7 +119,7 @@ function SideNav({ className }) {
         </GroupWrapper>
       </RangeWrapper>
       <GroupWrapper>
-        <h5>Size</h5>
+        <Title>Size</Title>
         <BtnWrapper>
           {btnArr.map((itm, id) => (
             <button key={id} onClick={() => console.log(itm)}>
