@@ -6,7 +6,9 @@ import styled from "styled-components";
 import Loading from "../component/HOC/Loading";
 import ListSelector from "../component/listings/ListSelector";
 import ListTitle from "../component/listings/ListTitle";
-import { dispatchFetchFailure, dispatchFetchSuccess, loadingData } from "../redux/actions/requestActions";
+import { getCategoryName } from "../helpers";
+import { fetchShoesBrands, fetchShoesData, fetchShoesError, loadingData, minMax } from "../redux/actions/requestActions";
+
 const ItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -82,10 +84,12 @@ function Listing() {
       axios
         .request(options)
         .then(function (response) {
-          dispatchFetchSuccess(pathname, dispatch, response.data.results.filter((itm) => itm.media.thumbUrl !== null));
+          dispatch(fetchShoesData(getCategoryName(pathname), response.data.results.filter((itm) => itm.media.thumbUrl !== null)));
+          dispatch(fetchShoesBrands(getCategoryName(pathname)));
+          dispatch(minMax(getCategoryName(pathname)));
         })
         .catch(function (error) {
-          dispatchFetchFailure(pathname, dispatch,error);
+          dispatch(fetchShoesError(getCategoryName(pathname), error));
         });
       
     }

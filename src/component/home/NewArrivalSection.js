@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchShoesData, fetchShoesError } from "../../redux/actions/requestActions";
+import { getCategoryName } from '../../helpers'
 import NextIcon from "../customIcon/Next";
 import ItemCard from "../ItemCard";
 
@@ -43,8 +44,6 @@ const ItemWrapper = styled.div`
 `;
 
 function NewArrival() {
-
-
   const dispatch = useDispatch();
   const result = useSelector((state) => state.networkRequestReducer.newShoes.data);
   
@@ -72,10 +71,10 @@ function NewArrival() {
       axios
         .request(options)
         .then(function (response) {
-          dispatch(fetchShoesData(response.data.results.filter((itm) => itm.media.thumbUrl !== null)))
+          dispatch(fetchShoesData(getCategoryName("/products/new"), response.data.results.filter((itm) => itm.media.thumbUrl !== null)));
         })
         .catch(function (error) {
-          dispatch(fetchShoesError(error))
+          dispatch(fetchShoesError(getCategoryName("/products/new"), error));
         });
     }
     //eslint-disable-next-line

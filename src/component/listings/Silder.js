@@ -3,7 +3,8 @@ import Slider from "rc-slider";
 import styled from 'styled-components';
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { filterQueryAll, filterQueryChildren, filterQueryMen, filterQueryWomen } from "../../redux/actions/requestActions";
+import { filterPrice } from "../../redux/actions/requestActions";
+import { getCategoryName } from "../../helpers";
 
 
 const StyledSlider = styled.div`
@@ -38,18 +39,7 @@ const dispatch = useDispatch()
 
   const onSlideAfterChange = (val) => { 
     setValue(val);
-    if(pathname === "/products/new") { 
-       dispatch(filterQueryAll(val))
-    }
-    if(pathname === "/products/men") { 
-        dispatch(filterQueryMen(val))
-    }
-    if(pathname === "/products/women") { 
-        dispatch(filterQueryWomen(val))
-    }
-    if(pathname === "/products/kids") { 
-        dispatch(filterQueryChildren(val))
-    }
+    dispatch(filterPrice(getCategoryName(pathname),val))
    }
 
 

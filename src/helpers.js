@@ -157,3 +157,21 @@ export function returnArrayofObjects(arr) {
 
   return resultArr;
 }
+
+export function getCategoryName(pathname){
+  let category = "";
+  if (pathname === "/products/new") {
+    category = "newShoes";
+  }
+  if (pathname === "/products/men") {
+    category = "menShoes";
+  }
+  if (pathname === "/products/women") {
+    category = "womenShoes";
+  }
+  if (pathname === "/products/kids") {
+    category = "childrenShoes";
+  }
+
+  return category
+}
