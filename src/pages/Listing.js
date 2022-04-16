@@ -99,7 +99,7 @@ function Listing() {
     <>
       <ListTitle />
       <ItemWrapper>
-          {isLoading ? <Loading /> :<ListSelector type={pathname} />}
+          {isLoading ? <Loading /> :<ListSelector type="LIST_ITEMS" pathname={pathname} />}
       </ItemWrapper>
     </>
   );

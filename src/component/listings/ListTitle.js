@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { resetBrandToFilter } from "../../redux/actions/requestActions";
@@ -13,6 +13,7 @@ const Title = styled.h2`
 `;
 
 function ListTitle() {
+  const brands = useSelector((state) => state.networkRequestReducer.brandsFilter);
   const { pathname } = useLocation();
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ function ListTitle() {
       setTitle(`For ${pathname.substring(10)}`);
     }
     return () => {
-      dispatch(resetBrandToFilter());
+      if (brands.length !== 0) {
+        dispatch(resetBrandToFilter());
+      }
     };
   }, [pathname, dispatch]);
 

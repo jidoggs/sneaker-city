@@ -44,7 +44,7 @@ function SavedItems() {
       <div>
         <Title>Saved Items</Title>
         <ItemWrapper>
-          <ListSelector type={pathname} />
+          <ListSelector type="SAVED_ITEMS" />
         </ItemWrapper>
       </div>
       <Information image={backImg}>

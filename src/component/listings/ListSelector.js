@@ -1,20 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { resultFilter } from "../../helpers";
+import { getCategoryName, resultFilter } from "../../helpers";
 import ItemCard from "../ItemCard";
 
-function ListSelector({ type }) {
+function ListSelector({ pathname,type }) {
   const allShoes = useSelector((state) => state.networkRequestReducer);
 
-  const {newShoes , menShoes, womenShoes, childrenShoes, brandsFilter} = allShoes;
+  const {data , minMax} = allShoes[getCategoryName(pathname)];
 
   const savedItems = useSelector((state) => state.savedReducer.savedItems);
 
   let template = null;
 
   switch (type) {
-    case "/products/new":
-      template = resultFilter(newShoes.data, newShoes.minMax?.filter, brandsFilter).map((itm, id) => (
+    case "LIST_ITEMS":
+      template = resultFilter(data, minMax?.filter, allShoes.brandsFilter).map((itm, id) => (
           <ItemCard
             key={id}
             title={itm.title}
@@ -24,44 +24,8 @@ function ListSelector({ type }) {
           />
         ));
       break;
-    case "/products/men":
-      template = resultFilter(menShoes.data, menShoes.minMax?.filter, brandsFilter).map((itm, id) => (
-        <ItemCard
-          key={id}
-          title={itm.title}
-          price={itm.retailPrice}
-          id={itm.id}
-          image={itm.media.thumbUrl}
-        />
-      ));
-      break;
-    case "/products/women":
-      template = resultFilter(womenShoes.data, womenShoes.minMax?.filter, brandsFilter).map(
-        (itm, id) => (
-          <ItemCard
-            key={id}
-            title={itm.title}
-            price={itm.retailPrice}
-            id={itm.id}
-            image={itm.media.thumbUrl}
-          />
-        )
-      );
-      break;
-    case "/products/kids":
-      template = resultFilter(childrenShoes.data, childrenShoes.minMax?.filter, brandsFilter).map(
-        (itm, id) => (
-          <ItemCard
-            key={id}
-            title={itm.title}
-            price={itm.retailPrice}
-            id={itm.id}
-            image={itm.media.thumbUrl}
-          />
-        )
-      );
-      break;
-    case "/saved-items":
+    
+    case "SAVED_ITEMS":
       template = (savedItems.map(
         (itm, id) => (
           <ItemCard
