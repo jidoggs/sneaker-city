@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 import ListSelector from "../component/listings/ListSelector";
 import backImg from "../static/images/browse-header-sneakers.png";
 
@@ -37,7 +36,6 @@ const Information = styled.div`
 `;
 
 function SavedItems() {
-  const { pathname } = useLocation();
 
   return (
     <Container>

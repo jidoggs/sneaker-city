@@ -29,7 +29,7 @@ function ListTitle() {
         dispatch(resetBrandToFilter());
       }
     };
-  }, [pathname, dispatch]);
+  }, [pathname, dispatch]);//eslint-disable-line
 
   return <Title>{title}</Title>;
 }
