@@ -125,7 +125,7 @@ export const capitalizeEachWord = (str) => {
 
 export const resultFilter = (parentArr, priceArr, brandArr) => {
   return parentArr.filter((itm) => {
-    return priceArr.length > 0
+    return priceArr?.length > 0
       ? brandArr.length === 0
         ? itm.retailPrice >= priceArr[0] && itm.retailPrice <= priceArr[1]
         : itm.retailPrice >= priceArr[0] &&

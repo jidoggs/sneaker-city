@@ -3,6 +3,7 @@ import {
   ADD_FILTER_BRAND,
   CATEGORY_SHOE_BRANDS,
   CLEAR_FILTER_BRANDS,
+  CLEAR__FILTER__PRICE,
   DATA_ISLOADING,
   FETCH_SHOES_FAIL,
   FETCH_SHOES_SUCCESS,
@@ -104,17 +105,28 @@ export default function appReducer(state = initialState, { type, payload }) {
           }
         }
       };
-      case FILTER__PRICE:
-        return {
-          ...state,
-          [payload.category]:{
-            ...state[payload.category],
-            minMax:{
-              ...state[payload.category].minMax,
-              filter: payload.data
-            }
+    case FILTER__PRICE:
+      return {
+        ...state,
+        [payload.category]:{
+          ...state[payload.category],
+          minMax:{
+            ...state[payload.category].minMax,
+            filter: payload.data
           }
-        };
+        }
+      };
+    case CLEAR__FILTER__PRICE:
+      return {
+        ...state,
+        [payload.category]:{
+          ...state[payload.category],
+          minMax:{
+            ...state[payload.category].minMax,
+            filter: []
+          }
+        }
+      };
     case ADD_FILTER_BRAND:
       return {
         ...state,

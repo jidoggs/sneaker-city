@@ -3,7 +3,7 @@ import styled from "styled-components";
 import "rc-slider/assets/index.css";
 import CustomizedRange from "./Silder";
 import { useSelector } from "react-redux";
-import { btnArr } from "../../helpers";
+import { btnArr, getCategoryName } from "../../helpers";
 import { useLocation } from "react-router-dom";
 import Brands from "./Brands";
 import { Title } from "./BrandTitle";
@@ -79,24 +79,7 @@ const GroupWrapper = styled.div`
 function SideNav({ className }) {
   const networkShoes = useSelector((state) => state.networkRequestReducer);
   const { pathname } = useLocation();
-  const { newShoes, menShoes, womenShoes, childrenShoes } = networkShoes;
-
-  const switchMinMax = (pathname) => {
-    if (pathname === "/products/new") {
-      return newShoes.minMax;
-    }
-    if (pathname === "/products/men") {
-      return menShoes.minMax;
-    }
-    if (pathname === "/products/women") {
-      return womenShoes.minMax;
-    }
-    if (pathname === "/products/kids") {
-      return childrenShoes.minMax;
-    }
-  };
-
-  const result = switchMinMax(pathname);
+  const { minMax } = networkShoes[getCategoryName(pathname)];
 
   return (
     <form
@@ -112,9 +95,9 @@ function SideNav({ className }) {
         <GroupWrapper>
         <Title>Price range</Title>
           <CustomizedRange
-            lower={result?.min}
-            upper={result?.max}
-            state={[result?.min, result?.max]}
+            lower={minMax?.min}
+            upper={minMax?.max}
+            state={[minMax?.min, minMax?.max]}
           />
         </GroupWrapper>
       </RangeWrapper>

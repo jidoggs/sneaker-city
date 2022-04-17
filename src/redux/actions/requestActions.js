@@ -2,6 +2,7 @@ import {
   ADD_FILTER_BRAND,
   CATEGORY_SHOE_BRANDS,
   CLEAR_FILTER_BRANDS,
+  CLEAR__FILTER__PRICE,
   DATA_ISLOADING,
   FETCH_SHOES_FAIL,
   FETCH_SHOES_SUCCESS,
@@ -35,6 +36,11 @@ export const minMax = (cat) => ({
 export const filterPrice = (cat, data) => ({
   type: FILTER__PRICE,
   payload: { category: cat, data: data },
+});
+
+export const resetFilterPrice = (cat) => ({
+  type: CLEAR__FILTER__PRICE,
+  payload: { category: cat },
 });
 
 export const addBrandToFilter = (data) => ({

@@ -18,10 +18,15 @@ const StyledSlider = styled.div`
       margin-top: -3px;
     }
   }
+  .tipper {
+    display: block;
+    width: max-content;
+  }
 `;
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
+// { lower, upper, state }
 
 export default function CustomizedRange({ lower, upper, state }) {
   const { pathname } = useLocation();
@@ -35,7 +40,7 @@ export default function CustomizedRange({ lower, upper, state }) {
   useEffect(() => {
     setValue(state);
     // eslint-disable-next-line
-  }, [lower]);
+  }, [lower,upper]);
 
   const onSlideAfterChange = (val) => {
     setValue(val);
@@ -51,6 +56,7 @@ export default function CustomizedRange({ lower, upper, state }) {
         value={value}
         onAfterChange={onSlideAfterChange}
         onChange={onSliderChange}
+        tipFormatter={(v) => <span className="tipper">$ {v}.00</span>}
       />
     </StyledSlider>
   );
