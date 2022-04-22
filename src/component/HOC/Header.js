@@ -18,6 +18,13 @@ const HeaderStyled = styled.header`
   & > a {
     grid-column: 2/4;
   }
+
+  @media(max-width: 1020px){
+  grid-template-columns: 3rem repeat(12, 1fr) 3rem ;
+  }
+  @media(max-width: 510px){
+  grid-template-columns: 2rem repeat(12, 1fr) 2rem ;
+  }
 `
 
 function Header() {

@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import styled from "styled-components";
+import useWindowSize from "../../hooks/useWindowSize";
 import Brand from "../customIcon/Brand";
 
 const Container = styled(motion.section)`
@@ -31,11 +32,11 @@ const InnerContainer = styled(motion.div)`
   align-items: center;
 `;
 
-const innercontainer = {
+const initialState = {
   hidden: { x: 0, y: 0 },
   visible: {
     x: "calc(-50vw + 50% + 4rem )",
-    y: "calc(-50vh + 50% + 24px )",
+    y: "calc(-50vh + 50% + 1.5rem )",
     transition: {
       delay: 9,
     },
@@ -83,7 +84,7 @@ const newSentence = {
       delay: 0.1,
       type: "spring",
       stiffness: 400,
-      bounce:1
+      bounce: 1,
     },
   },
 };
@@ -110,7 +111,8 @@ const hideDash = {
   visible: {
     opacity: 0,
     transition: {
-      repeat: Infinity, repeatDelay: 0.4
+      repeat: Infinity,
+      repeatDelay: 0.4,
     },
   },
 };
@@ -121,6 +123,34 @@ function Welcome() {
 
   const sentenceRef = useRef(null);
   const [state, setState] = useState(true);
+  const [innercontainer, setInnercontainer] = useState(initialState);
+  const { width } = useWindowSize();
+
+  useLayoutEffect(() => {
+    if (width > 1020) {
+      setInnercontainer(initialState);
+    }
+    if (width <= 1020 && width > 510) {
+      setInnercontainer((prev) => ({
+        ...prev,
+        visible: {
+          ...prev.visible,
+          x: "calc(-50vw + 50% + 3rem )",
+          y: "calc(-50vh + 50% + 1.125rem )",
+        },
+      }));
+    }
+    if (width <= 510) {
+      setInnercontainer((prev) => ({
+        ...prev,
+        visible: {
+          ...prev.visible,
+          x: "calc(-50vw + 50% + 2rem )",
+          y: "calc(-50vh + 50% + 0.75rem )",
+        },
+      }));
+    }
+  }, [width]);
 
   useEffect(() => {
     let time = setTimeout(() => {
@@ -147,7 +177,7 @@ function Welcome() {
               variants={sentence}
               initial="hidden"
               animate="visible"
-              exit={{ y: [-50, 50, 0], opacity: 0, display:"none" }}
+              exit={{ y: [-50, 50, 0], opacity: 0, display: "none" }}
             >
               {textConent.split("").map((char, idx) => (
                 <motion.span
@@ -182,7 +212,6 @@ function Welcome() {
               initial="hidden"
               animate="visible"
               key={"shortBrandNmae"}
-
             >
               {finalTextConent.split("").map((char, idx) => (
                 <motion.span
