@@ -7,13 +7,23 @@ import HeartIcon from "../customIcon/HeartIcon";
 import UserIcon from "../customIcon/UserIcon";
 
 const NavHeader = styled.nav`
-  grid-column: 6/-2;
+  grid-column: ${props => props.showMenu? "unset": "6/-2"};
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: ${props => props.showMenu? "space-evenly": "space-between"};
+  align-items: ${props => props.showMenu? "flex-start": "center"};
+  position: ${props => props.showMenu? "absolute": "unset"};
+  flex-direction: ${props => props.showMenu? "column": "unset"};
+  padding-left: ${props => props.showMenu? "2rem": "unset"};
+  height: ${props => props.showMenu? "100vh": "unset"};
+  background-color: #fff;
+
 
   @media (max-width: 1024px) {
-    display: none;
+    opacity: ${props => props.showMenu? "1": "0"};
+    grid-column: unset;
+    inset: ${props => props.showMenu? "0 0 0 0": "0 0 0 100vw"};
+    
+    transition: inset 1s ease;
   }
 
   ul,
@@ -29,6 +39,8 @@ const NavHeader = styled.nav`
   ul {
     display: flex;
     gap: 2rem;
+    flex-direction: ${props => props.showMenu? "column": "unset"};
+
   }
   .active {
     padding-bottom: 4px;
@@ -68,7 +80,7 @@ const NavHeader = styled.nav`
   }
 `;
 
-function Navitems() {
+function Navitems({showMenu}) {
   const cartRef = useRef(null);
   const likeRef = useRef(null);
   const navigate = useNavigate();
@@ -77,7 +89,7 @@ function Navitems() {
   
 
   return (
-    <NavHeader>
+    <NavHeader showMenu={showMenu} >
       <ul>
         <li>
           <NavLink to={"/products/new"}>New arrivals</NavLink>

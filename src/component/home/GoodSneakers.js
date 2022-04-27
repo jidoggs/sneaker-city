@@ -49,6 +49,17 @@ const Container = styled.section`
         flex-direction:column;
         align-items:center;
     }
+
+    @media(max-width:936px){
+      height:unset;
+      flex-direction: column;
+      align-items:center;
+      row-gap: 2rem;
+
+      .group__original{
+        align-self: unset;
+      }
+    }
   }
 `;
 

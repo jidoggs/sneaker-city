@@ -70,6 +70,27 @@ const FooterStyle = styled.footer.attrs((props) => ({
       grid-row: 2/3;
       justify-self: flex-end;
     }
+
+    @media (max-width: 1226px) {
+      grid-template-columns: repeat(1, 1fr);
+      p:first-child {
+        grid-column: ${(props) =>
+          props.location.includes("/products") ? "1/-1" : "1/-1"};
+        grid-row: 1/2;
+      }
+      p:nth-child(2) {
+        grid-column: ${(props) =>
+          props.location.includes("/products") ? "1/3" : "1/-1"};
+        grid-row: 2/3;
+        justify-self: unset;
+      }
+
+      p:last-child {
+        grid-column: 1/-1;
+        grid-row: 3/4;
+        justify-self: unset;
+      }
+    }
   }
   .disclaimer,
   .address {

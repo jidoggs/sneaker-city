@@ -1,4 +1,4 @@
-import React, {  useLayoutEffect,  useState } from "react";
+import React, { useLayoutEffect,  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -18,6 +18,19 @@ const LayoutStyled = styled.div`
     props.location.includes("/products")
       ? "2rem repeat(12, 1fr) 4rem"
       : "4rem repeat(12, 1fr) 4rem"};
+
+@media(max-width: 1020px){
+  grid-template-columns: ${(props) =>
+    props.location.includes("/products")
+      ? "2rem repeat(12, 1fr) 3rem"
+      : "3rem repeat(12, 1fr) 3rem"};
+  }
+@media(max-width: 510px){
+  grid-template-columns: ${(props) =>
+    props.location.includes("/products")
+      ? "1.5rem repeat(12, 1fr) 2rem"
+      : "2rem repeat(12, 1fr) 2rem"};
+  }
 
   .sideNav {
     height: 100vh;

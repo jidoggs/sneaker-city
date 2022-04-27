@@ -19,6 +19,10 @@ const Container = styled.div`
 const BtnWrapper = styled.div`
   display: flex;
   column-gap: 1rem;
+  @media(max-width: 502px){
+   flex-direction: column;
+   row-gap:1rem;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -39,6 +43,11 @@ const HomeHeadline = styled.h1`
   span {
     font-size: 2.25rem;
   }
+  @media(max-width: 502px){
+    font-size: 2.5rem;
+    line-height:2.5rem;
+  }
+  
 `;
 
 const HomeSub = styled.p`
