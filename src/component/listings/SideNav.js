@@ -14,13 +14,13 @@ const RangeWrapper = styled.div`
 `;
 
 const BtnWrapper = styled.div`
-  /* display: grid;
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem; */
-  
-  display:flex;
-  flex-wrap: wrap;
   gap: 0.75rem;
+  
+  /* display:flex;
+  flex-wrap: wrap;
+  gap: 0.75rem; */
 
   button {
     padding: 0.75rem 1rem;

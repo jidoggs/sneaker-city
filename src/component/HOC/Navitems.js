@@ -18,13 +18,7 @@ const NavHeader = styled.nav`
   background-color: #fff;
 
 
-  @media (max-width: 1024px) {
-    opacity: ${props => props.showMenu? "1": "0"};
-    grid-column: unset;
-    inset: ${props => props.showMenu? "0 0 0 0": "0 0 0 100vw"};
-    
-    transition: inset 1s ease;
-  }
+ 
 
   ul,
   li {
@@ -77,6 +71,18 @@ const NavHeader = styled.nav`
   }
   svg{
     cursor: pointer;
+  }
+  @media (max-width: 1024px) {
+    opacity: ${props => props.showMenu? "1": "0"};
+    grid-column: unset;
+    inset: ${props => props.showMenu? "0 0 0 0": "0 0 0 100vw"};
+    
+    transition: inset 1s ease;
+
+    ul{
+      display: ${props => props.showMenu? "flex": "none"}
+    }
+
   }
 `;
 
