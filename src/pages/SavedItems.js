@@ -13,10 +13,19 @@ const ItemWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   column-gap: 1.5rem;
   row-gap: 4rem;
-
+  
   & > a {
     text-decoration: none;
     color: inherit;
+  }
+  
+  @media(max-width: 1100px){
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  @media(max-width: 870px){
+    grid-template-columns: repeat(1, 1fr);
+
   }
 `;
 const Title = styled.h2`
@@ -33,6 +42,10 @@ const Information = styled.div`
   background-repeat: repeat-x;
   background-image: url(${(props) => props.image});
   padding: 4rem 1rem;
+
+  @media(max-width: 610px){
+    display: none;
+  }
 `;
 
 function SavedItems() {
