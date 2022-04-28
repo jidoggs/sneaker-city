@@ -23,75 +23,120 @@ const HeaderStyled = styled.header`
     justify-content: center;
   }
 
-  .hamburger{
+  .hamburger {
     display: none;
     background-color: black;
-    width : 2rem;
+    width: 2rem;
     height: 0.32rem;
     grid-column: -3/-2;
     justify-self: flex-end;
     position: relative;
-    transition: background .2s ease;
+    transition: background 0.2s ease;
     z-index: 1;
 
     @media (max-width: 1024px) {
-      display: block
+      display: block;
     }
 
     &::before,
-    &::after{
-      content:"";
+    &::after {
+      content: "";
       position: absolute;
       width: 100%;
       height: 100%;
       left: 0;
       background-color: black;
-      transition: all .5s ease;
+      transition: all 0.5s ease;
     }
-    &::before{
+    &::before {
       top: -0.8rem;
     }
-    &::after{
+    &::after {
       top: 0.8rem;
     }
 
-    &__clicked{
+    &__clicked {
       background-color: transparent;
-      
+
       &::after,
-      &::before{
+      &::before {
         top: 0;
       }
-      &::before{
+      &::before {
         transform: rotate(45deg);
       }
-      &::after{
+      &::after {
         transform: rotate(-45deg);
       }
     }
   }
 
-  @media(max-width: 1020px){
-  grid-template-columns: 3rem repeat(12, 1fr) 3rem ;
+  .navBar {
+    display: flex;
+    background-color: #fff;
+
+    &_show {
+      grid-column: unset;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      position: absolute;
+      flex-direction: column;
+      padding-left: 2rem;
+      height: 100vh;
+    }
+    &_hide {
+      grid-column: 6/-2;
+      justify-content: space-between;
+      align-items: center;
+      position: unset;
+      flex-direction: unset;
+      padding-left: unset;
+      height: unset;
+    }
+
+    @media (max-width: 1024px) {
+      grid-column: unset;
+      transition: inset 0.5s ease;
+      &_show {
+        opacity: 1;
+        inset: 0;
+
+        ul {
+          display: flex;
+        }
+      }
+      &_hide {
+        opacity: 0;
+        left: 100vw;
+
+        ul {
+          display: none;
+        }
+      }
+    }
   }
-  @media(max-width: 510px){
-  grid-template-columns: 2rem repeat(12, 1fr) 2rem ;
+
+  @media (max-width: 1020px) {
+    grid-template-columns: 3rem repeat(12, 1fr) 3rem;
   }
-`
+  @media (max-width: 510px) {
+    grid-template-columns: 2rem repeat(12, 1fr) 2rem;
+  }
+`;
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    if(showMenu){
-      setShowMenu(false)
+    if (showMenu) {
+      setShowMenu(false);
     }
-  }, [pathname]) //eslint-disable-line
+  }, [pathname]); //eslint-disable-line
 
-  const hamburgerClick = () => { 
-    setShowMenu(!showMenu)
-   }
+  const hamburgerClick = () => {
+    setShowMenu(!showMenu);
+  };
 
   return (
     <HeaderStyled>
@@ -99,7 +144,10 @@ function Header() {
         <Logo className={"logo"} />
       </Link>
 
-      <span onClick={hamburgerClick} className={`hamburger ${showMenu?"hamburger__clicked":""}`} ></span>
+      <span
+        onClick={hamburgerClick}
+        className={`hamburger ${showMenu ? "hamburger__clicked" : ""}`}
+      ></span>
       <Navitems showMenu={showMenu} />
     </HeaderStyled>
   );

@@ -7,18 +7,6 @@ import HeartIcon from "../customIcon/HeartIcon";
 import UserIcon from "../customIcon/UserIcon";
 
 const NavHeader = styled.nav`
-  grid-column: ${props => props.showMenu? "unset": "6/-2"};
-  display: flex;
-  justify-content: ${props => props.showMenu? "space-evenly": "space-between"};
-  align-items: ${props => props.showMenu? "flex-start": "center"};
-  position: ${props => props.showMenu? "absolute": "unset"};
-  flex-direction: ${props => props.showMenu? "column": "unset"};
-  padding-left: ${props => props.showMenu? "2rem": "unset"};
-  height: ${props => props.showMenu? "100vh": "unset"};
-  background-color: #fff;
-
-
- 
 
   ul,
   li {
@@ -72,18 +60,6 @@ const NavHeader = styled.nav`
   svg{
     cursor: pointer;
   }
-  @media (max-width: 1024px) {
-    opacity: ${props => props.showMenu? "1": "0"};
-    grid-column: unset;
-    inset: ${props => props.showMenu? "0 0 0 0": "0 0 0 100vw"};
-    
-    transition: inset 1s ease;
-
-    ul{
-      display: ${props => props.showMenu? "flex": "none"}
-    }
-
-  }
 `;
 
 function Navitems({showMenu}) {
@@ -95,7 +71,7 @@ function Navitems({showMenu}) {
   
 
   return (
-    <NavHeader showMenu={showMenu} >
+    <NavHeader className={`navBar ${showMenu? "navBar_show" : "navBar_hide"}`} showMenu={showMenu} >
       <ul>
         <li>
           <NavLink to={"/products/new"}>New arrivals</NavLink>
