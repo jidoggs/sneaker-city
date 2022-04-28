@@ -7,6 +7,9 @@ import CustomRedBtn from "../CustomRedBtn";
 
 const Checkout = styled.section`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  
   h4 {
     font-size: 1.125rem;
     font-weight: 400;
@@ -25,8 +28,8 @@ const Checkout = styled.section`
       line-height: 1.5rem;
       color: #000000a6;
 
-      &:last-child{
-          margin-bottom: 0;
+      &:last-child {
+        margin-bottom: 0;
       }
 
       span {
@@ -34,38 +37,57 @@ const Checkout = styled.section`
       }
     }
   }
-  .total{
-      padding-top:1.5rem;
-      padding-right: 2rem;
-      padding-bottom: 4rem;
-      display: flex;
-      flex-direction: row-reverse;
+  .total {
+    padding-top: 1.5rem;
+    padding-right: 2rem;
+    padding-bottom: 4rem;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  button{
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    padding-top: 3rem !important;
   }
 `;
 
 function CartCheckOut() {
-  const total = useSelector(state => state.cartReducer.cartItemsTotal)
-  const dispatch = useDispatch()
+  const total = useSelector((state) => state.cartReducer.cartItemsTotal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(subTotal())
-  }, [dispatch])
-  const checkoutHandler = () => { 
-    dispatch(showModal("Thank you for shopping with Sneaker city"))
-   }
+    dispatch(subTotal());
+  }, [dispatch]);
+  const checkoutHandler = () => {
+    dispatch(showModal("Thank you for shopping with Sneaker city"));
+  };
 
   return (
     <Checkout>
       <h4>Order summary</h4>
       <div className="breakdown">
         <p>
-          Sub total <span>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}</span>
+          Sub total{" "}
+          <span>
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(total)}
+          </span>
         </p>
         <p>
           Delivery fee <span>0</span>
         </p>
       </div>
-      <p className="total">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}</p>
+      <p className="total">
+        {new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(total)}
+      </p>
       <CustomRedBtn text="Proceed to checkout" onClick={checkoutHandler} />
     </Checkout>
   );

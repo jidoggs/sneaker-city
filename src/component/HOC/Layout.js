@@ -33,17 +33,25 @@ const LayoutStyled = styled.div`
         ? "1.5rem repeat(12, 1fr) 2rem"
         : "2rem repeat(12, 1fr) 2rem"};
   }
+  @media (max-width: 440px) {
+    grid-template-columns: ${(props) =>
+      props.location.includes("/products")
+        ? "1.5rem repeat(12, 1fr) 2rem"
+        : props.location.includes("/cart")? "1rem repeat(12, 1fr) 1rem": "2rem repeat(12, 1fr) 2rem"};
+  }
 
   .sideNavToggle {
     display: none;
     position: fixed;
     width: 2.5rem;
-    top: 6rem;
+    top: 6.5rem;
     color: #fff;
     padding: 0.5rem;
     writing-mode: tb-rl;
     text-orientation: upright;
     border-radius: 0 1rem 1rem 0;
+    box-shadow: 2px 2px 6px rgb(0 0 0 / 25%);
+    transition: background .5s ease;
     
     &_green{
       background: green;
@@ -65,10 +73,12 @@ const LayoutStyled = styled.div`
     position: fixed;
     right: 100%;
     background: #fff;
-    transition: inset 0.8s ease;
+    opacity: 0;
+    transition: inset 0.8s ease, opacity 0.8s ease;
 
     &_show {
       inset: 0 74% 0 2.5rem;
+      opacity: 1;
       @media (max-width: 1169px) {
         right: 69%;
       }

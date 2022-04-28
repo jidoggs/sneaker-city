@@ -44,6 +44,61 @@ const CartItemContainer = styled.div`
     grid-column: 7/8;
     grid-row:1/2;
   }
+  .cartCounter{
+    grid-column: 5/6;
+  }
+
+  @media(max-width:768px){
+    grid-template-columns: max-content 1fr max-content 1fr max-content;
+    .image{
+      grid-column: 1/2;
+      grid-row: 1/2;
+    }
+    .title{
+      grid-column: 3/4;
+      grid-row: 1/2;
+    }
+    .unitAmount{
+      grid-column: 1/2;
+      grid-row: 2/3;
+      align-self: center;
+      justify-self: center;
+    }
+    .unitTotal{
+      grid-column: 5/6; 
+      grid-row: 2/3;
+    }
+    .cartCounter{
+      grid-column: 3/4;
+      grid-row: 2/3;
+      justify-self: center;
+    }
+  }
+
+  @media(max-width: 580px){
+    padding:1.5rem 1rem;
+  }
+  @media(max-width: 425px){
+    row-gap: .5rem;
+    .unitAmount{
+      grid-column: 5/6;
+      grid-row: 1/2;      
+    }
+    .cartCounter{
+      grid-column: 1/4;
+      grid-row: 3/4;
+    }
+    .title{
+      grid-column: 1/6;
+      grid-row: 2/3;
+    }
+    .unitTotal{
+      grid-column:5/6;
+      grid-row:3/4;
+    }
+  }
+
+  
   `;
 const RemoveBtn = styled.button`
   grid-column: 7/8;
@@ -51,6 +106,18 @@ const RemoveBtn = styled.button`
   align-self: end;
   justify-self:end;
   cursor: pointer;
+  
+  @media(max-width:768px){
+    grid-column: 5/6;
+    grid-row: 1/2;
+    align-self: center;
+    justify-self:center;
+  }
+  @media(max-width:425px){
+    grid-column: 1/6;
+    grid-row: 4/5;
+    justify-self: stretch;
+  }
 `;
 
 function CartItem({ title, img, unit, itmCount,itmId }) {
@@ -74,7 +141,7 @@ function CartItem({ title, img, unit, itmCount,itmId }) {
       <span className="image" role={"img"} aria-roledescription="shoe"></span>
       <Link to={`/product/${itmId}`} className="title" >{title}</Link>
       <p className="unitAmount">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(unit)}</p>
-      <CartItemCounter style={{ gridColumn: "5/6" }} count={itmCount} decreaseHandler={decreaseHandler} increaseHandler={increaseHandler} />
+      <CartItemCounter count={itmCount} decreaseHandler={decreaseHandler} increaseHandler={increaseHandler} />
       <p className="unitTotal">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(itmCount * unit)}</p>
       <RemoveBtn onClick={deleteHandler}>remove</RemoveBtn>
     </CartItemContainer>

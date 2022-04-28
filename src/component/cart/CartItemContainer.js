@@ -8,7 +8,11 @@ const CartWrapper = styled.div`
   flex-direction: column;
   padding: 1.25rem;
   gap: 1rem;
-  height: ${props => props.size <= 2? "50vh": "unset"};
+  height: ${props => props.size <= 1? "50vh": "unset"};
+
+  @media(max-width:580px){
+    padding: 1.25rem .5rem;
+  }
 `;
 const CartItemStyle = styled.div`
   display: flex;

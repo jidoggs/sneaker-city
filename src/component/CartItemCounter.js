@@ -32,7 +32,7 @@ function CartItemCounter({ style, count, increaseHandler, decreaseHandler }) {
   
 
   return (
-    <Counter style={style}>
+    <Counter className="cartCounter" style={style}>
       <button disabled={count === 1} onClick={decreaseHandler}>-</button>
       <span>{count}</span>
       <button onClick={increaseHandler}>+</button>

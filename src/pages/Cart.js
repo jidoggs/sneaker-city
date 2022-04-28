@@ -7,6 +7,10 @@ const CartPage = styled.div`
   display: flex;
   column-gap: 4rem;
   padding-top: 2rem;
+
+  @media(max-width:1080px){
+    flex-direction: column;
+  }
 `;
 
 function Cart() {
