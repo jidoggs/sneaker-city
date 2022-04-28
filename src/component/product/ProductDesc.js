@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { btnArr } from "../../helpers";
 import { cartAddItem, updateCartItem } from "../../redux/actions/cartActions";
@@ -21,6 +22,10 @@ const ProductDecStyled = styled.div`
     flex-direction: column;
     color: #000000a6;
 
+    @media (max-width: 954px) {
+      padding-top: 0;
+    }
+
     h5 {
       padding-bottom: 1.125rem;
       color: #000;
@@ -36,6 +41,10 @@ const ProductDecStyled = styled.div`
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 12px;
+
+      @media (max-width: 420px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
 
       button {
         padding: 12px 15px;
@@ -53,6 +62,10 @@ const ProductDecStyled = styled.div`
   .cartQuantity {
     display: flex;
     column-gap: 2rem;
+
+    @media (max-width: 954px) {
+      justify-content: center;
+    }
   }
 `;
 
@@ -66,6 +79,7 @@ function ProductDesc({ data }) {
   const [count, setCount] = useState(
     cartItem.length === 1 ? cartItem[0].amount : 1
   );
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -76,8 +90,16 @@ function ProductDesc({ data }) {
     if (cartItem.length !== 1 && shoeSize !== "") {
       dispatch(cartAddItem({ ...data, shoeSize: shoeSize, amount: count }));
     }
-    if ((cartItem.length === 1 && shoeSize !== cartItem[0].shoeSize) || (cartItem.length === 1 && count !== cartItem[0].amount)) {
-      dispatch(updateCartItem({id: cartItem[0].id, count: count, shoeSize: shoeSize}))
+    if (
+      (cartItem.length === 1 && shoeSize !== cartItem[0].shoeSize) ||
+      (cartItem.length === 1 && count !== cartItem[0].amount)
+    ) {
+      dispatch(
+        updateCartItem({ id: cartItem[0].id, count: count, shoeSize: shoeSize })
+      );
+    }
+    if (shoeSize !== "") {
+      navigate(-1);
     }
   };
 
@@ -127,7 +149,11 @@ function ProductDesc({ data }) {
             increaseHandler={increaseHandler}
           />
           <CustomRedBtn
-            disabled={cartItem.length === 1 && cartItem[0].shoeSize === shoeSize && count === cartItem[0].amount}
+            disabled={
+              cartItem.length === 1 &&
+              cartItem[0].shoeSize === shoeSize &&
+              count === cartItem[0].amount
+            }
             text={"Add to cart"}
             onClick={onClickHandler}
           />

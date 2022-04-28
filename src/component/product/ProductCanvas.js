@@ -10,6 +10,13 @@ const ProductCanvasStyle = styled.div`
   display: flex;
   flex-direction: column;
   padding: 6rem 4rem;
+  @media(max-width:954px){
+    padding-bottom: 0;
+  }
+  @media(max-width:690px){
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 const ShoeImage = styled.div`
   background-image: url(${(props) => props.image});
@@ -18,6 +25,10 @@ const ShoeImage = styled.div`
   width: 100%;
   background-size: contain;
   background-position: top;
+
+  @media(max-width:954px){
+    height: 35vh;
+  }
 `;
 const TextWrapper = styled.div`
   display: flex;

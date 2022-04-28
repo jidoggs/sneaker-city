@@ -11,6 +11,11 @@ const ProductStyle = styled.div`
 
   display: flex;
   column-gap: 4rem;
+
+  @media(max-width:954px){
+    grid-column: 2/-2;
+    flex-direction: column;
+  }
 `;
 
 function Product() {
