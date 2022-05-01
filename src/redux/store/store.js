@@ -22,7 +22,7 @@ export const store = configureStore(
       // Ignore these paths in the state
       // ignoredPaths: ['items.dates'],
     },
-  }), },
+  }),devTools: process.env.NODE_ENV === "development" },
   compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
 );
 
