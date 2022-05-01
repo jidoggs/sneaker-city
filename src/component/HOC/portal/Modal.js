@@ -27,6 +27,23 @@ const StyledModal = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    padding: 1rem;
+
+    @media(max-width:1024px){
+      width: 95%;
+    }
+    @media(max-width: 768px){
+      font-size: 1.6rem;
+    }
+    @media(max-width: 646px){
+      font-size: 1.4rem;
+    }
+    @media(max-width: 554px){
+      font-size: 1rem;
+    }
+    @media(max-width: 418px){
+      font-size: 0.8rem;
+    }
   }
 `;
 
