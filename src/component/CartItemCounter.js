@@ -28,11 +28,11 @@ const Counter = styled.div`
   }
 `;
 
-function CartItemCounter({ style, count, increaseHandler, decreaseHandler }) {
+function CartItemCounter({ onClick, style, count, increaseHandler, decreaseHandler }) {
   
 
   return (
-    <Counter className="cartCounter" style={style}>
+    <Counter onClick={onClick} className="cartCounter" style={style}>
       <button disabled={count === 1} onClick={decreaseHandler}>-</button>
       <span>{count}</span>
       <button onClick={increaseHandler}>+</button>

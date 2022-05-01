@@ -3,7 +3,7 @@ import CartItemCounter from "../CartItemCounter";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { cartRemoveItem, decreaseCartItemCount, increaseCartItemCount, subTotal } from "../../redux/actions/cartActions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartItemContainer = styled.div`
   padding: 1.5rem 2rem;
@@ -106,6 +106,15 @@ const RemoveBtn = styled.button`
   align-self: end;
   justify-self:end;
   cursor: pointer;
+  padding: .2rem;
+  border: 1px solid green;
+  background-color:#fafafa;
+  transition: all .2s ease;
+  &:hover{
+    background-color: red;
+    color: #fafafa;
+    border-color: transparent;
+  }
   
   @media(max-width:768px){
     grid-column: 5/6;
@@ -122,6 +131,7 @@ const RemoveBtn = styled.button`
 
 function CartItem({ title, img, unit, itmCount,itmId }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const decreaseHandler = () => {
     dispatch(decreaseCartItemCount({id: itmId, count: itmCount}))
     if (itmCount > 1) {
@@ -132,16 +142,23 @@ function CartItem({ title, img, unit, itmCount,itmId }) {
     dispatch(increaseCartItemCount({id: itmId, count: itmCount}))
     dispatch(subTotal())
   };
-  const deleteHandler = () => {
+  const deleteHandler = (e) => {
+    e.stopPropagation()
     dispatch(cartRemoveItem(itmId))
     dispatch(subTotal())
   };
+  const onClickHandler = () => { 
+    navigate(`/product/${itmId}`)
+   }
+   const cartBtnHandler = (e) => { 
+    e.stopPropagation()
+    }
   return (
-    <CartItemContainer image={img}>
+    <CartItemContainer onClick={onClickHandler} image={img}>
       <span className="image" role={"img"} aria-roledescription="shoe"></span>
       <Link to={`/product/${itmId}`} className="title" >{title}</Link>
       <p className="unitAmount">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(unit)}</p>
-      <CartItemCounter count={itmCount} decreaseHandler={decreaseHandler} increaseHandler={increaseHandler} />
+      <CartItemCounter onClick={cartBtnHandler} count={itmCount} decreaseHandler={decreaseHandler} increaseHandler={increaseHandler} />
       <p className="unitTotal">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(itmCount * unit)}</p>
       <RemoveBtn onClick={deleteHandler}>remove</RemoveBtn>
     </CartItemContainer>
