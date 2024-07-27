@@ -125,17 +125,33 @@ export const capitalizeEachWord = (str) => {
 
 export const resultFilter = (parentArr, priceArr, brandArr) => {
   return parentArr.filter((itm) => {
-    return priceArr?.length > 0
-      ? brandArr.length === 0
+    const withinPriceRange =
+      priceArr?.length > 0
         ? itm.retailPrice >= priceArr[0] && itm.retailPrice <= priceArr[1]
-        : itm.retailPrice >= priceArr[0] &&
-          itm.retailPrice <= priceArr[1] &&
-          brandArr.includes(capitalizeEachWord(itm.brand))
-      : brandArr.length > 0
-      ? brandArr.includes(capitalizeEachWord(itm.brand))
-      : itm;
+        : true;
+
+    const matchesBrand =
+      brandArr?.length > 0
+        ? brandArr.includes(capitalizeEachWord(itm.brand))
+        : true;
+
+    return withinPriceRange && matchesBrand;
   });
 };
+
+// export const resultFilter = (parentArr, priceArr, brandArr) => {
+//   return parentArr.filter((itm) => {
+//     return priceArr?.length > 0
+//       ? brandArr.length === 0
+//         ? itm.retailPrice >= priceArr[0] && itm.retailPrice <= priceArr[1]
+//         : itm.retailPrice >= priceArr[0] &&
+//           itm.retailPrice <= priceArr[1] &&
+//           brandArr.includes(capitalizeEachWord(itm.brand))
+//       : brandArr.length > 0
+//       ? brandArr.includes(capitalizeEachWord(itm.brand))
+//       : itm;
+//   });
+// };
 
 export const appearOnce = (inputArr) => {
   const resultObj = {};
@@ -158,7 +174,7 @@ export function returnArrayofObjects(arr) {
   return resultArr;
 }
 
-export function getCategoryName(pathname){
+export function getCategoryName(pathname) {
   let category = "";
   if (pathname === "/products/new") {
     category = "newShoes";
@@ -173,5 +189,5 @@ export function getCategoryName(pathname){
     category = "childrenShoes";
   }
 
-  return category
+  return category;
 }
