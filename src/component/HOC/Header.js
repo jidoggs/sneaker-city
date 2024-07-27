@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../customIcon/Logo";
 import Navitems from "./Navitems";
+import { accessibleOnClick } from "../util";
 
 const HeaderStyled = styled.header`
   display: grid;
@@ -145,7 +146,7 @@ function Header() {
       </Link>
 
       <span
-        onClick={hamburgerClick}
+        {...accessibleOnClick(hamburgerClick)}
         className={`hamburger ${showMenu ? "hamburger__clicked" : ""}`}
       ></span>
       <Navitems showMenu={showMenu} />

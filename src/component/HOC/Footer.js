@@ -74,8 +74,7 @@ const FooterStyle = styled.footer.attrs((props) => ({
     @media (max-width: 1226px) {
       grid-template-columns: repeat(1, 1fr);
       p:first-child {
-        grid-column: ${(props) =>
-          props.location.includes("/products") ? "1/-1" : "1/-1"};
+        grid-column: 1/-1;
         grid-row: 1/2;
       }
       p:nth-child(2) {

@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CartIcon from "../customIcon/CartIcon";
 import HeartIcon from "../customIcon/HeartIcon";
 import UserIcon from "../customIcon/UserIcon";
+import { accessibleOnClick } from "../util";
 
 const NavHeader = styled.nav`
-
   ul,
   li {
     list-style: none;
@@ -21,8 +21,7 @@ const NavHeader = styled.nav`
   ul {
     display: flex;
     gap: 2rem;
-    flex-direction: ${props => props.showMenu? "column": "unset"};
-
+    flex-direction: ${(props) => (props.showMenu ? "column" : "unset")};
   }
   .active {
     padding-bottom: 4px;
@@ -47,31 +46,33 @@ const NavHeader = styled.nav`
       padding: 0.7rem;
     }
   }
-  .cart{
-    span{
+  .cart {
+    span {
       background-color: red;
     }
   }
-  .store{
-    span{
+  .store {
+    span {
       background-color: green;
     }
   }
-  svg{
+  svg {
     cursor: pointer;
   }
 `;
 
-function Navitems({showMenu}) {
+function Navitems({ showMenu }) {
   const cartRef = useRef(null);
   const likeRef = useRef(null);
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cartReducer.cart);
   const saved = useSelector((state) => state.savedReducer.savedItems);
-  
 
   return (
-    <NavHeader className={`navBar ${showMenu? "navBar_show" : "navBar_hide"}`} showMenu={showMenu} >
+    <NavHeader
+      className={`navBar ${showMenu ? "navBar_show" : "navBar_hide"}`}
+      showMenu={showMenu}
+    >
       <ul>
         <li>
           <NavLink to={"/products/new"}>New arrivals</NavLink>
@@ -90,11 +91,14 @@ function Navitems({showMenu}) {
         </li>
       </ul>
       <ul>
-        <li className="cart" onClick={() => navigate("/cart")}>
-          <CartIcon cartRef={cartRef}  />
+        <li {...accessibleOnClick(() => navigate("/cart"))} className="cart">
+          <CartIcon cartRef={cartRef} />
           {cart.length !== 0 && <span>{cart.length}</span>}
         </li>
-        <li className="store" onClick={() => navigate("/saved-items")}>
+        <li
+          {...accessibleOnClick(() => navigate("/saved-items"))}
+          className="store"
+        >
           <HeartIcon likeRef={likeRef} />
           {saved.length !== 0 && <span>{saved.length}</span>}
         </li>

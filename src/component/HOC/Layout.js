@@ -11,6 +11,7 @@ import Modal from "./portal/Modal";
 import SideNav from "../listings/SideNav";
 import Welcome from "./Welcome";
 import useWindowSize from "../../hooks/useWindowSize";
+import { accessibleOnClick } from "../util";
 
 const LayoutStyled = styled.div`
   position: relative;
@@ -37,7 +38,9 @@ const LayoutStyled = styled.div`
     grid-template-columns: ${(props) =>
       props.location.includes("/products")
         ? "1.5rem repeat(12, 1fr) 2rem"
-        : props.location.includes("/cart")? "1rem repeat(12, 1fr) 1rem": "2rem repeat(12, 1fr) 2rem"};
+        : props.location.includes("/cart")
+        ? "1rem repeat(12, 1fr) 1rem"
+        : "2rem repeat(12, 1fr) 2rem"};
   }
 
   .sideNavToggle {
@@ -51,12 +54,12 @@ const LayoutStyled = styled.div`
     text-orientation: upright;
     border-radius: 0 1rem 1rem 0;
     box-shadow: 2px 2px 6px rgb(0 0 0 / 25%);
-    transition: background .5s ease;
-    
-    &_green{
+    transition: background 0.5s ease;
+
+    &_green {
       background: green;
     }
-    &_red{
+    &_red {
       background: red;
     }
 
@@ -226,9 +229,14 @@ function Layout() {
           <Header />
           <LayoutStyled location={pathname}>
             {pathname.includes("/products/") && (
-              <span onClick={sideNavHandler} className={`sideNavToggle ${showSideNav? "sideNavToggle_red": "sideNavToggle_green"}`}>
-                {showSideNav ? "Hide ":"Show "}
-                 Filter
+              <span
+                {...accessibleOnClick(sideNavHandler)}
+                className={`sideNavToggle ${
+                  showSideNav ? "sideNavToggle_red" : "sideNavToggle_green"
+                }`}
+              >
+                {showSideNav ? "Hide " : "Show "}
+                Filter
               </span>
             )}
             {pathname.includes("/products/") && (

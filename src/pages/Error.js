@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-function Error() {
+function ErrorPage() {
   const navigate = useNavigate();
   return (
     <Container image={image}>
@@ -34,4 +34,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default ErrorPage;
